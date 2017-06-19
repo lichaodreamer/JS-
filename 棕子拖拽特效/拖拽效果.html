@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>粽子拖拽</title>
+  <style>
+	*{margin:0px;padding:0px;}
+	/* body{overflow:hidden;} */
+	#box{
+		position:absolute;
+		left:150px;
+		top:100px;
+		width:400px;
+		height:400px;
+		background:#ff0099;
+		margin:100px auto;
+		border:12px solid red;
+		border-radius:0px 90px 0px 90px;
+		/* 先实现外阴影 */
+		box-shadow:16px 16px 24px 40px #888d8e,5px 5px 0px 12px #888d8e inset;
+		transform:rotate(130deg);
+	}
+	.dumplings{
+		position:absolute;
+		width:150px;
+		height:150px;
+	}
+	.box1{
+		left:160px;
+		top:110px;
+		background:url("images/1.png") no-repeat;
+		background-size:100% 100%;
+	}
+	.box2{
+		left:180px;
+		top:230px;
+		background:url("images/2.png") no-repeat;
+		background-size:100% 100%;
+	}
+	.box3{
+		left:200px;
+		top:310px;
+		background:url("images/3.png") no-repeat;
+		background-size:100% 100%;
+	}
+	.box4{
+		left:250px;
+		top:430px;
+		background:url("images/4.png") no-repeat;
+		background-size:100% 100%;
+	}
+	.box5{
+		left:230px;
+		top:530px;
+		background:url("images/5.png") no-repeat;
+		background-size:100% 100%;
+	}
+	.box6{
+		left:170px;
+		top:600px;
+		background:url("images/6.png") no-repeat;
+		background-size:100% 100%;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box"></div>
+	<div class="dumplings box1"></div>
+	<div class="dumplings box2"></div>
+	<div class="dumplings box3"></div>
+	<div class="dumplings box4"></div>
+	<div class="dumplings box5"></div>
+	<div class="dumplings box6"></div>
+ </body>
+ <script>
+	var dumplings=document.getElementsByClassName("dumplings");
+	for(var i=0;i<dumplings.length;i++){
+		dumplings[i].onmousedown=drag;
+	}
+	function drag(e){
+		this.style.cursor="move";
+		var e=e||window.event;
+		var x=e.pageX
+		var y=e.pageY;//鼠标坐标位置
+		var startX=this.offsetLeft;//粽子初始位置
+		var startY=this.offsetTop;
+		var that=this;
+		document.onmousemove=function(e){
+			var e=e||window.event;
+			var newX=e.pageX
+			var newY=e.pageY;
+			var oLeft=newX-x;//计算鼠标移动距离
+			var oTop=newY-y;
+			//更改粽子的位置坐标
+			that.style.left=startX+oLeft+"px";
+			that.style.top=startY+oTop+"px";
+		}
+		document.onmouseup=function(){
+			that.style.cursor="default";
+			this.onmousemove=null;
+			this.onmouseup=null;
+		}
+	}
+ </script>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>放大镜</title>
+	<style type="text/css">
+		*{
+			margin:0px;padding:0px;
+		}
+		#box{
+			width:400px;
+			height:400px;
+			margin:100px 0px 0px 100px;
+			position:relative;
+			/* overflow:hidden; */
+		}
+		#move{
+			width:200px;
+			height:200px;
+			position:absolute;
+			left:0px;
+			top:0px;
+			background:url("img/cover.png");
+			cursor:move;
+			display:none;
+		}
+		#big{
+			width:400px;
+			height:400px;
+			position:absolute;
+			top:0px;
+			left:430px;
+			overflow:hidden;
+			display:none;
+		}
+		#big img{position:absolute;
+			left:0px;
+			top:0px;
+		}
+	</style>
+ </head>
+ <body>
+	<div id="box">
+		<img src="img/bimg.jpg" width="400px" height="400px">
+		<div id="move"></div>
+		<div id="big">
+			<img src="img/bimg.jpg">
+		</div>
+	</div>
+ </body>
+<script>
+	var oBox=document.getElementById("box");
+	var oMove=document.getElementById("move");
+	var oBig=document.getElementById("big");
+	var oImg=oBig.getElementsByTagName("img")[0];
+	oBox.onmousemove=function(e){
+		e=e||window.event;
+		var x=e.clientX;
+		var y=e.clientY;
+		var oX=x-oBox.offsetLeft;
+		var oY=y-oBox.offsetTop;
+		oMove.style.display="block";
+		oBig.style.display="block";
+		if(oX<=100)oX=100;
+		if(oY<=100)oY=100;
+		if(oX>=300)oX=300;
+		if(oY>=300)oY=300;
+		oMove.style.left=oX-100+"px";
+		oMove.style.top=oY-100+"px";
+		oImg.style.left=-parseInt(oMove.style.left)*2+"px";
+		oImg.style.top=-parseInt(oMove.style.top)*2+"px";
+	}
+	oBox.onmouseout=function(){
+		oMove.style.display="none";
+		oBig.style.display="none";
+	}
+ </script>
+</html>

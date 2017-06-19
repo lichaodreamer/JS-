@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="js/jquery.js"></script>
+  <style>
+	/* *{margin:0;padding:0;} */
+	body,ul,li{margin:0;padding:0;}
+	#box{
+		margin:50px auto;
+		width:1100px;
+		height:900px;
+		border:2px solid red;
+	}
+	#box ul li{
+		list-style:none;
+		width:250px;
+		/* height:200px; */
+		float:left;
+		margin:8px;
+		border:2px solid #969a8d;
+		padding:2px;
+		box-shadow:0px 0px 5px #000;
+		/* background:blue; */
+	}
+	#box ul li img{
+		width:250px;
+		transition:2s;/*动画时间过渡*/
+	}
+  </style>
+  <title>瀑布流加载</title>
+ </head>
+ <body>
+	<div id="box">
+		<ul>
+			<!--这里可以只设置width，能等比缩放-->
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+ </body>
+ <script>
+	//数组存图片路径
+	var arr=[
+		{src:"images/1.jpg"},
+		{src:"images/2.jpg"},
+		{src:"images/3.jpg"},
+		{src:"images/4.jpg"},
+		{src:"images/5.jpg"},
+		{src:"images/6.jpg"},
+		{src:"images/7.jpg"},
+		{src:"images/8.jpg"},
+		{src:"images/9.jpg"},
+		{src:"images/10.jpg"},
+		{src:"images/11.jpg"},
+		{src:"images/12.jpg"}
+	];
+	var i=0;//循环变量
+	var sum;
+
+	upload();
+	//动态添加图片
+	function create(){
+		var oImg =new Image();//jq方法创建
+		oImg.src=arr[i%arr.length].src;
+		//图片对象css3的透明度和变换缩放属性
+		oImg.style.cssText="opacity:0;teansform:scale(0)";
+		getList().append(oImg);//获取高度最小的Li
+		//延迟改变缩放值
+		setTimeout(function(){
+			oImg.style.cssText="opacity:1;teansform:scale(1)";
+		},100);
+	}
+	//获取高度最小的Li的函数
+	function getList(){
+		var oLi=$("#box ul li");
+		var h=Infinity;
+		var list="";//保存判断成功的li
+		for(var i=0;i<oLi.length;i++){
+			//选择到某一个li,获取到高度
+			if(oLi.eq(i).height()<h){
+				h=oLi.eq(i).height();
+				list=oLi.eq(i);//这里是li，不只是i的值
+			}
+		}
+		return list;//函数输出这个li
+	}
+	//循环输出的条件函数
+	function upload(){
+		if(i<12){
+			for(;i<12;i++){
+				create();
+			}
+			i++;
+		}else{
+			//每次添加三张
+			sum=i;
+			for(;i<sum+3;i++){
+				create();
+			}
+		}
+		
+	}
+	//和浏览器的滚动条关联起来
+	var h="";//文档高度，它是大于H的
+	var t="";//滚动条高度
+	var H=$(window).height();//浏览器窗口的高度
+	//滚动条事件，滚动时就会触发
+	$(window).scroll(function(){
+	
+		h=$(document).height();//文档高度
+		t=$(window).scrollTop();//滚动条高度
+		if(t+H+10>h){
+			upload();
+		}
+	});
+ </script>
+</html>

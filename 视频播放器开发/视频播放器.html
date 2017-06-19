@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>视频播放器</title>
+	<style>
+		*{margin:0;padding:0;}
+		body{overflow:hidden;}
+		#video{
+			margin:50px auto;
+			width:600px;
+			height:500px;
+		}
+		.content{
+			width:600px;
+			height:400px;
+			background:URL("images/3.jpg");
+		}
+		.progress{
+			width:600px;
+			height:20px;
+			background:red;
+		}
+		.progress div{
+			float:left;
+		}
+		.currTime,.allTime{
+			width:70px;
+			height:20px;
+			background:pink;
+		}
+		.pro{
+			width:460px;
+			height:20px;
+		}
+		.controls{
+			width:600px;
+			height:67px;
+			text-align:center;
+			margin-top:10px;
+		}
+		.controls a{
+			/* 行间块内元素，一行显示且有宽高 */
+			display:inline-block;
+			width:67px;
+			height:67px;
+			background:url("images/icon.png");
+		}
+		#prev{
+			/* 左右  上下 */
+			background-position:-412px -212px;
+		}
+		#play{background-position:-250px -120px;}
+		#play:hover{background-position:-169px -120px;}
+		#next{background-position:-250px -212px;}
+		#stop{background-position:-574px -120px;}
+		#volum{background-position:-574px -212px;}
+		#fullpoint{background:url("images/fullscreen.png";}
+	</style>
+ </head>
+ <body>
+  <div id="video">
+	<div class="content">
+		<!--加controls直接有进度条-->
+		<video id="myVideo" width="600" height="400" src="video/喜羊羊与灰太狼第1集.mp4" ></video>
+	</div>
+	<div class="progress">
+		<div class="currTime">00:00:00</div>
+		<div class="pro"></div>
+		<div class="allTime">00:00:00</div>
+	</div>
+	<div class="controls">
+		<a href="javascript:;" id="prev"></a>
+		<a href="javascript:;" id="play"></a>
+		<a href="javascript:;" id="next"></a>
+		<a href="javascript:;" id="stop"></a>
+		<a href="javascript:;" id="volum"></a>
+		<a href="javascript:;" id="fullpoint"></a>
+	</div>
+  </div>
+ </body>
+ <script>
+	var prev=document.getElementById("prev");
+	var play=document.getElementById("play");
+	var next=document.getElementById("next");
+	var stop=document.getElementById("stop");
+	var volum=document.getElementById("volum");
+	var fullpoint=document.getElementById("fullpoint");
+	var myVideo=document.getElementById("myVideo");
+	var mark=true;
+	var n=0;//多少个视频
+	var arr=[
+		{src:"video/喜羊羊与灰太狼第1集.mp4"},
+		{src:"video/喜羊羊与灰太狼第2集.mp4"},
+		{src:"video/喜羊羊与灰太狼第3集.mp4"},
+		{src:"video/喜羊羊与灰太狼第4集.mp4"},
+	]
+	//点击播放
+	play.onclick=function(){	
+		if(mark){
+			playing();
+		}else{
+			myVideo.pause();
+			this.style.backgroundPosition="-250px -120px";
+			mark=true;
+		}
+
+	}
+	prev.onclick=function(){
+		n--;
+		if(n<0)n=3;
+		myVideo.src=arr[n].src;
+		playing();
+	}
+	next.onclick=function(){
+		n++;
+		n%=arr.length;
+		//if(n>3){n=0;}上面方式挺好
+		myVideo.src=arr[n].src;
+		playing();
+	}
+	stop.onclick=function(){
+		//myVideo.stop();
+		this.style.backgroundPosition="-495px -120px";
+
+	}
+	function playing(){
+		myVideo.play();
+		mark=false;
+		play.style.backgroundPosition="-412px -120px";
+		//背景这样写
+	}
+ </script>
+</html>

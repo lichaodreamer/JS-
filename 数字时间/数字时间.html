@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>time</title>
+	<style type="text/css">
+		*{
+			margin: 0;padding: 0
+		}
+		body{
+			overflow: hidden;
+			font-size: 50px;
+		}
+		#time{
+			text-align: center;
+			margin-top: 100px;
+		}
+		img{
+			width: 50px;
+			height: 70px;
+		}
+	</style>
+</head>
+<body>
+	<div id="time">
+		<img src="images/0.gif" / class="times">
+		<img src="images/1.gif" / class="times">
+		<img src="images/hao.jpg" / class="colon">
+		<img src="images/2.gif" / class="times">
+		<img src="images/3.gif" / class="times">
+		<img src="images/hao.jpg" / class="colon">
+		<img src="images/4.gif" / class="times">
+		<img src="images/5.gif" / class="times">
+	</div>
+	
+</body>
+	<script type="text/javascript">
+		var oImg=document.getElementsByClassName('times');
+		var oColon=document.getElementsByClassName("colon");
+		var mark=true;
+		function myTime(){
+			var time= new Date();
+			var day=time.getDay();
+			var hour=time.getHours();
+			var min=time.getMinutes();
+			var sec=time.getSeconds();
+			var str=zero(hour)+zero(min)+zero(sec);;
+			// var oBody=document.body;
+			for(var i=0;i<oImg.length;i++){
+				oImg[i].src="images/"+str.charAt(i)+".gif";
+			}
+		}
+		myTime();
+		colonChange();
+		var timer=setInterval(myTime,1000);
+		var timero=setInterval(colonChange,500);
+		// 封装补0
+		function zero(num){
+			// if(num<10){
+			// 	return num="0"+num;
+			// }else{return num=num+""}
+			return num<10?"0"+num:""+num;
+		}
+		function colonChange(){
+			// if (mark){
+			// 	oColon[0].style.opacity=0;
+			// 	oColon[1].style.opacity=0;
+			// }else{
+			// 	oColon[0].style.opacity=1;
+			// 	oColon[1].style.opacity=1;
+			// }
+			mark?auto(0):auto(1);
+			mark=!mark;
+			function auto(num){
+				for(let i=0;i<oColon.length;i++){
+					oColon[i].style.opacity=num;
+				}
+			}
+		}
+	</script>
+</html>

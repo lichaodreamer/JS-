@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>手风琴特效</title>
+  <style>
+	*{margin:0;padding:0}
+	html,body{height:100%;}
+	li{list-style:none;}
+	.bg-box{
+		width:100%;
+		height:100%;
+		position:absolute;
+	}
+	.bg-box img{/*会有边框，因为img为行内块级元素inline-block,有默认的对齐属性，解决方式*/
+		display:block;
+		width:100%;
+		height:100%;
+	}
+	#wrap{
+		position:absolute;
+		width:1090px;
+		height:430px;
+		/*方法一 top:50%;
+		left:50%;
+		都用50%，可以用margin-top往回拉 */
+		/* 方法二 */
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+		margin:auto;
+		border:2px solid #368;
+		/* detted是点状线 */
+	}
+	#wrap ul{
+		width:120%;
+	}
+	#wrap ul li{
+		width:100px;
+		height:430px;
+		background:red;
+		/* display:inline;这样是一行的，但是宽高需要内容撑开 */
+		float:left;
+		background:url("images/1.jpg");
+	}
+	/* 选择指定的li的背景 */
+	#wrap ul li:nth-child(2){
+		background:url("images/2.jpg");
+	}
+	#wrap ul li:nth-child(3){
+		background:url("images/3.jpg");
+	}
+	#wrap ul li:nth-child(4){
+		width:789px;
+		background:url("images/4.jpg");
+	}
+	#wrap ul li div{
+		width:100px;
+		height:430px;
+		background:rgba(0,0,0,.5);
+	}
+	#wrap ul li div p{
+		color:#fff;
+		padding:40px 40px;
+	}
+  </style>
+ </head>
+ <body>
+	<div class="bg-box">
+		<img src="images/1.jpg" width="789" height="429">
+	</div>
+	<div class="bg-box">
+		<img src="images/2.jpg" width="789" height="429">
+	</div>
+	<div class="bg-box">
+		<img src="images/3.jpg" width="789" height="429">
+	</div>
+	<div class="bg-box">
+		<img src="images/4.jpg" width="789" height="429">
+	</div>
+	<div id="wrap">
+		<ul>
+			<li>
+				<div>
+					<p>我的个人拉萨之旅</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<p>我的个人拉萨之旅</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<p>我的个人拉萨之旅</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<p>我的个人拉萨之旅</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+ </body>
+ <script src="js/jquery-1.11.1.min.js"></script>
+ <script>
+	var $li=$('#wrap ul li');
+	var $bg=$('.bg-box');
+	$li.hover(function(){
+		var index=$(this).index();//存储下标
+	
+		//$bg.eq(index).fadeIn(300).siblings().fadeOut(300)
+		
+		$(this).stop().animate({
+			width:'789px'		
+		},500).siblings('li').stop().animate({
+			width:'100px'
+		},500)
+	})
+	//.stop()终止动画序列
+	//.animate()动画
+	//.siblings()兄弟元素
+ </script>
+</html>

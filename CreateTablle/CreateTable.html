@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="Table.js"></script>
+  <style>
+  body{
+	overflow:hidden;
+	text-align:center;
+  }
+	#win{
+		width:600px;
+		margin:10px auto;
+	}
+  </style>
+ </head>
+ <body>
+	<!-- 输入行：
+	<input type="text" /><br/>
+	输入列：
+	<input type="text" /><br/>
+	<button>确定</button><br/> -->
+	<div id="win"></div>
+ </body>
+ <script type="text/javascript">
+	var win=document.getElementById("win");
+	var table = new Table(win);
+	table.createTable({
+		col:6,
+		row:10
+	});
+ </script>
+</html>

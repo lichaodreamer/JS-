@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>抽奖系统</title>
+	<style>
+		*{margin:0px;padding:0px;}
+		html{			
+			width:100%;
+			height:100%;
+			background:url("img/index.jpg")top center no-repeat; 
+		}
+		#section{
+			position:relative;
+			margin:auto;
+			margin-top:180px;
+			width:934px;
+			height:370px;
+		}
+		.result{
+			/* position:absolute; */
+			margin:auto;
+			height:170px;
+			color:#fff;
+			text-align:center;
+		}
+		h1{
+			text-align:center;
+			padding-top:10px;
+		}
+		.result div{
+			width:140px;
+			float:left;
+			font-size:30px;
+			font-weight:bolder;
+			margin-left:30px;
+			margin-top:30px;
+		}
+		#btn{
+			position:absolute;
+			width:323px;
+			height:81px;
+			background:url("img/btn.png") no-repeat;
+			top:350px;
+			left:300px;
+		}
+	</style>
+ </head>
+ <body>
+	<div id="section">
+		<div class="result">
+			<h1>注意了！要抽奖了！！！！！</h1>
+		</div>
+		<!--出现数字是可能出现underfined -->
+		<input type="button" id="btn"/>
+	</div>
+ </body>
+ <script>
+	var result=document.getElementsByClassName("result")[0];
+	var btn=document.getElementById('btn');
+	var maxNumber=4350//最大人数
+	var cN=15;//每次15个人
+	var steps=1;
+	var arr=[];//数组存储
+	var timer=null;
+	for(var i=1;i<maxNumber;i++){
+		var res;
+		if(i<10){
+			res="000"+i;
+		}else if(i<100){
+			res="00"+i;
+		}else if(i<1000){
+			res="0"+i;
+		}else{
+			res=i;
+		}
+		arr.push(res);
+	}
+	function getNumber(){
+		var num=arr[Math.floor(Math.random()*4349)+1];
+		var n = arr[num];
+		arr.splice(num,1);//删除数组num的第一位
+		return n;
+	}
+	function createNumber(){
+		if(steps>cN){
+			result.disabled=false;
+			return null;
+		}
+		steps++;
+		var div=document.createElement("div");
+		div.innerHTML="0000";
+		result.appendChild(div);
+		var dis=1,maxdix=30;
+		timer=setInterval(function(){
+			dis++;
+			if(dis>maxdix){
+				div.innerHTML=getNumber();
+				clearInterval(timer);
+				createNumber();
+			}
+			div.innerHTML=arr[Math.floor(Math.random()*4349)+1];
+		},50);
+	}
+	btn.onclick=function(){
+		this.disabled=true;
+		createNumber();
+	}
+	//console.log(arr);
+ </script>
+</html>

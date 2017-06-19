@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>照片墙</title>
+  <style>
+	*{margin:0;padding:0;}
+	#photo{
+		width:680px;
+		margin:20px auto;
+	}
+	#photo ul li{
+		list-style:none;
+		width:200px;
+		height:200px;
+		float:left;
+		margin:10px;
+		border:2px solid transparent;
+	}
+	#photo ul li img{
+		width:200px;
+		height:200px;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="photo">
+		<ul>
+			<li><img src="images/1.jpg"></li>
+			<li><img src="images/2.jpg"></li>
+			<li><img src="images/3.jpg"></li>
+			<li><img src="images/4.jpg"></li>
+			<li><img src="images/5.jpg"></li>
+			<li><img src="images/6.jpg"></li>
+			<li><img src="images/7.jpg"></li>
+			<li><img src="images/8.jpg"></li>
+			<li><img src="images/9.jpg"></li>
+		</ul>
+	</div>
+ </body>
+ <script src="js/move.js"></script>
+ <script>
+		var oLi=document.getElementsByTagName("li");
+		var arr=[];//存储li的偏移量
+		var z=1;
+		//先实现absolute定位
+		for(var i=0,len=oLi.length;i<len;i++){
+			arr.push([oLi[i].offsetLeft,oLi[i].offsetTop]);
+		}
+		for(var i=0,len=oLi.length;i<len;i++){
+			oLi[i].index=i;
+			oLi[i].style.position="absolute";
+			oLi[i].style.left=arr[i][0]+"px";
+			oLi[i].style.top=arr[i][1]+"px";
+			oLi[i].style.margin="0";
+		}
+		//拖拽功能
+		for(var i=0,l=oLi.length;i<l;i++){
+			drag(oLi[i]);
+		}
+		function drag(obj){
+			obj.onmousedown=function(ev){
+				var ev=ev||window.event;
+				//鼠标按下时坐标
+				var x=ev.clientX;
+				var y=ev.clientY;
+				//li的初始坐标
+				var l=this.offsetLeft;
+				var t=this.offsetTop;
+				//移动过程中
+				this.style.zIndex=z++;
+				document.onmousemove=function(ev){
+					var ev=ev||window.event;
+					//计算li的新位置
+					var _left=ev.clientX-x+l;
+					var _top=ev.clientY-y+t;
+					obj.style.left=_left+"px";
+					obj.style.top=_top+"px";
+					/*for(var i=0,lz=oLi.length;i<lz;i++){
+						if(impact(obj,oLi[i])&&obj!=oLi[i]){
+							oLi[i].style.border="2px solid red";
+						}
+					}*/
+					var rli = nearLi(obj);
+					for(var i=0,lz=oLi.length;i<lz;i++){
+						oLi[i].style.border="2px solid transparent";
+					}
+					if(rli){
+						rli.style.border="2px solid red";
+					}
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onmouseup=null;
+					//交换两个li
+					var rli = nearLi(obj);
+					if(rli){
+						//索引也要变的
+						move(rli,{left:arr[obj.index][0],top:arr[obj.index][1]});
+						move(obj,{left:arr[rli.index][0],top:arr[rli.index][1]});
+						rli.style.border="2px solid transparent";
+						var tmp=obj.index;
+						obj.index=rli.index;
+						rli.index=tmp;
+					}else{
+						move(obj,{left:arr[obj.index][0],top:arr[obj.index][1]});
+					}
+				}
+				return false;
+				//可以阻止默认拖拽（出现元魂现象）
+			}
+		}
+		//碰撞检测
+		function impact(obj1,obj2){
+			//获取每个li 的偏移值
+			var L1=obj1.offsetLeft,
+				R1=L1+obj1.offsetWidth,
+				T1=obj1.offsetTop,
+				B1=T1+obj1.offsetHeight;
+			var L2=obj2.offsetLeft,
+				R2=L2+obj2.offsetWidth,
+				T2=obj2.offsetTop,
+				B2=T2+obj2.offsetHeight;
+				if(R1<L2||B1<T2||T1>B2||L1>R2){//不成功
+					return false;
+					//console.log("不成功");
+				}else{
+					return true;
+					//console.log("成功");
+				}
+		}
+		//计算最小距离
+		function nearLi(obj){
+			var n=100000,aLi="";//成功的
+			for(var i=0,lz=oLi.length;i<lz;i++){
+				if(impact(obj,oLi[i])&&obj!=oLi[i]){
+					//oLi[i].style.border="2px solid red";
+					var c=distance(obj,oLi[i]);
+					if(c<n){
+						n=c;
+						aLi=oLi[i];
+					}
+				}
+			}
+			return aLi;
+		}
+		//勾股定理函数
+		function distance(obj1,obj2){
+			var a = obj1.offsetLeft-obj2.offsetLeft;
+			var b = obj1.offsetTop-obj2.offsetTop;
+			return Math.sqrt(a*a+b*b)
+		}
+ </script>
+</html>

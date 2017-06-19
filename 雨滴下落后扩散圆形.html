@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>雨滴下降后扩散</title>
+  <style>
+	*{margin:0px;padding:0px;}
+	body{
+		overflow:hidden; 
+	}
+	#canvas{
+		display:bloak;
+		background:#000;
+	}
+  </style>
+ </head>
+ <body>
+	<canvas id="canvas"></canvas>
+ </body>
+ <script type="text/javascript">
+	 //动画
+	window.requestAnimFrame=(function(){
+		return window.requestAnimationFrame||
+		window.webkitRequestAnimationFrame||
+		window.mozRequestAnimationFrame||
+		function(callback){
+			window.setTimeout(callback,1000/60);
+		}
+	})();
+ 	var can=document.getElementById("canvas");
+ 	var cxt=can.getContext("2d");
+ 	var w=can.width=window.innerWidth;
+ 	var h=can.height=window.innerHeight;//浏览器的宽高
+ 	window.onresize=function(){
+ 		w=can.width=window.innerWidth;
+ 		h=can.height=window.innerHeight;
+ 	}
+	var n=20;//生成多少个
+	var drops=[];//数组存储雨滴
+	//创建一个雨滴对象
+	function Drop(){
+		
+	}
+ 	Drop.prototype={
+		init:function(){//初始化雨滴的属性值
+			this.x=random(0,w);
+			this.y=0;
+			this.vy=random(4,5);//下落加速度
+			this.l=random(h*0.8,h*0.9);//雨滴的落点区域
+			this.r=1;//初始半径
+			this.vr=1;//圆形半径更新速度
+			this.a=1;//圆形初始透明度
+			this.va=0.96;//透明度更新系数
+		},
+		//绘制雨滴
+		draw:function(){
+			if (this.y>=this.l)//这时候开始绘制圆形
+			{
+				cxt.beginPath();
+				cxt.arc(this.x,this.y,this.r,0,2*Math.PI,false);
+				cxt.strokeStyle="rgba(0,255,255,"+this.a+")";
+				cxt.stroke();
+			}else{
+				cxt.fillStyle=randColor(this.a);
+				cxt.fillRect(this.x,this.y,2,10);
+			}
+			
+			//更新
+			this.update();
+		},
+		//更新雨滴位置
+		update:function(){
+			if (this.y<this.l)
+			{
+				this.y+=this.vy;//更新Y坐标
+			}else{
+				if (this.a>0.03)
+				{
+					this.r+=this.vr;//更新圆形半径
+					if (this.r>50)//这时候慢慢消失，透明度
+					{
+						this.a*=this.va;
+					}
+				}else{
+					this.init();
+				}
+			}
+		}
+	}
+	//动画是用递归的
+	function move(){
+		
+		cxt.fillStyle="rgba(0,0,0,0.1)";
+		cxt.fillRect(0,0,w,h);//绘制一个透明层
+//		cxt.clearRect(0,0,w,h);
+		for (var i=0;i<drops.length ;i++ )
+		{
+			drops[i].draw();
+		}
+		requestAnimationFrame(move);
+	}
+	move();
+	//延迟实例化每个雨滴
+	function setDrop(){
+		for (var i=0;i<n ;i++ )
+		{
+			setTimeout(function(){
+				var drop= new Drop();
+				drop.init();//初始化
+				drops.push(drop);//添加到数组
+			},i*200);
+			//这是防止i=30;
+			//(function(j){
+			//	setTimeout(function(){
+			//		var drop= new Drop();
+			//		drop.init();//初始化
+			//		drops.push(drop);//添加到数组
+			//	},i*200);
+			//})(i)
+		}
+	}
+	setDrop();
+	//随机颜色
+	function randColor(a){
+		var r=Math.floor(Math.random()*255);
+		var g=Math.floor(Math.random()*255);
+		var b=Math.floor(Math.random()*255);
+		return "rgba("+r+","+g+","+b+","+a+")"
+	}
+
+	//drop.init();//添加属性值
+	//drop.draw();
+	//自己从新写了random函数
+	function random(min,max){
+		return Math.random()*(max-min)+min;
+	}
+ </script>
+</html>

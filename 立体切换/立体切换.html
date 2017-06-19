@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>立体切换</title>
+  <style>
+	*{margin:0;padding:0;}
+	#banner{
+		position:relative;
+		margin:50px auto;
+		width:800px;
+		height:630px;
+	}
+	.btn div{
+		position:absolute;
+		top:270px;
+		width:40px;
+		height:70px;
+		color:#fff;
+		font-size:60px;
+		font-weight:bold;
+		cursor:pointer;/*手的形状*/	
+	}
+	.btn div:hover{
+		background:#ccc;
+	}
+	.btn div.left{
+		left:0px;
+		line-height:60px;
+	}
+	.btn div.right{
+		right:0px;
+		line-height:60px;
+	}
+	#banner ul li{
+		position:absolute;
+		list-style:none;
+		width:243px;
+		height:420px;
+		left:0px;
+		top:110px;
+		opacity:0.5;
+	}
+	#banner ul li.first{
+		top:0px;
+		width:380px;
+		height:630px;
+		left:210px;
+		z-index:10;/*定位元素才能设置层级*/
+		opacity:1;
+	}
+	#banner ul li img{
+		height:100%;
+		width:100%;	
+	}
+	#banner ul li.last{
+		left:557px;
+	}
+	#banner ul li.center{
+		left:210px;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="banner">
+		<ul>
+			<li class="first">
+				<img src="images/1.jpg">
+			</li>
+			<li>
+				<img src="images/2.jpg">
+			</li>
+			<li class="center">
+				<img src="images/3.jpg">
+			</li>
+			<li class="center">
+				<img src="images/4.jpg">
+			</li>
+			<li class="last">
+				<img src="images/5.jpg">
+			</li>
+		</ul>
+		<div class="btn">
+			<div class="left"> < </div>
+			<div class="right"> > </div>
+		</div>
+	</div>
+ </body>
+ <script src="js/jquery.js"></script>
+ <script>
+	var nowTime=new Date();
+	$(".left").click(function(){
+		if(new Date()-nowTime>1000){
+			move(false);
+		}
+		nowTime=new Date();
+	});
+	$(".right").click(function(){
+		if(new Date()-nowTime>1000){
+			move(true);
+		}
+		nowTime=new Date();
+	});
+	function move(direction){
+		var arrW=[],arrH=[],arrL=[];
+		var arrT=[],arrZ=[],arrO=[];
+		$("#banner ul li").each(function(i){
+			arrW[i]=$(this).css("width");
+			arrH[i]=$(this).css("height");
+			arrL[i]=$(this).css("left");
+			arrT[i]=$(this).css("top");
+			arrZ[i]=$(this).css("z-index");
+			arrO[i]=$(this).css("opacity");
+		});
+		$("#banner ul li").each(function(i){
+			var index;
+			if(direction){
+				//往右
+				index=i-1;
+				if(index<0)index=4;
+				$(this).css("z-index",arrZ[index]);
+				$(this).animate({
+					width:arrW[index],
+					height:arrH[index],
+					left:arrL[index],
+					top:arrT[index],
+					opacity:arrO[index]
+				},1000);
+			}else{
+				//往左
+				index=i+1;
+				if(index>4)index=0;
+				$(this).css("z-index",arrZ[index]);
+				$(this).animate({
+					width:arrW[index],
+					height:arrH[index],
+					left:arrL[index],
+					top:arrT[index],
+					opacity:arrO[index]
+				},1000);
+			}
+		});
+	}
+ </script>
+</html>
