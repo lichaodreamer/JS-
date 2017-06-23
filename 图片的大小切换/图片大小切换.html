@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>图片的大小切换</title>
+  <style>
+	*{margin:0;padding:0;}
+	#wrap{
+		width:1000px;
+		height:auto;
+		margin:20px auto;
+		border-radius:6px;
+	}
+	#wrap .title{
+		display:flex;
+		flex-direction:row;
+		justify-content:space-around;
+		align-items:center;
+		width:100%;
+		height:8%;
+		background:#ddd;
+		border-radius:6px;
+	}
+	#wrap .title span{
+		display:inline-block;
+		width:120px;
+		height:30px;
+		background:#ccc;
+		text-align:center;
+		line-height:30px;
+		color:#909092;
+		border-radius:6px;
+	}
+	#wrap .title span:hover{
+		background:#a9a9a9;
+	}
+	#wrap .items{
+		overflow:hidden;
+		width:100%;
+		height:auto;
+		padding-top:10px;
+		background:#ccc;
+	}
+	#wrap .items ul li{
+		list-style:none;
+		width:237px;
+		height:192px;
+		margin:6px;
+		float:left;
+	}
+	#wrap .items ul li img{
+		width:100%;
+		height:100%;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="wrap">
+		<div class="title">
+			<span>小图</span><span>中图</span><span>大图</span>
+		</div>
+		<div class="items">
+			<ul>
+				<li>
+					<img src="images/1.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/2.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/3.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/4.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/5.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/6.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/7.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/8.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/9.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/10.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/11.jpg" width="1280" height="1024" alt="图标">
+				</li>
+				<li>
+					<img src="images/12.jpg" width="1280" height="1024" alt="图标">
+				</li>
+			</ul>
+		</div>
+	</div>
+ </body>
+ <script src="js/jquery-1.12.1.min.js"></script>
+ <script>
+		var $span=$('#wrap .title span');
+		var $li=$('.items ul li');
+		var sm=237,sg=484,sl=980;
+		$span.click(function(){
+			var index=$(this).index();
+			switch(index){
+				case 0:
+					change(sm);
+					break;
+				case 1:
+					change(sg);
+					break;
+				case 2:
+					change(sl);
+					break;
+			}
+			
+		});
+		function change(size){
+			$li.animate({
+				width:size+"px",
+				height:size/1.25+"px"
+			},500)
+		}
+ </script>
+</html>

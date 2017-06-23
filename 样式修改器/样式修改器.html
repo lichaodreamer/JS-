@@ -1,0 +1,183 @@
+<!doctype html><!--声明html版本编写指令  H5-->
+<html>
+	<head>
+		<!--声明页面编码  uft-8 国际编码-->
+		<meta charset="UTF-8">
+		<!--网站三要素 关键字  页面描述  标题-->
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<style type="text/css">
+		*{margin:0px;padding:0px; font-family:"微软雅黑";}
+	#box{
+		width:400px;
+		height:450px;
+		background:#000;
+		margin:50px auto;
+		border:5px solid #000;
+		border-radius:5px;
+	}
+	#show{
+		width:100%;
+		 height:190px;
+		 background:#00ccff;
+		 line-height:200px;
+		 font-size:8px;
+		 font-weight:bold;
+		 text-align:center;
+		 border-radius:5px;
+	}
+	#font ul{
+		margin-left:10px;
+		margin-top:30px;
+	}
+	#font ul li{
+		width:380px;
+		height:50px;
+		list-style-type:none;
+		color:#ddd;
+	}
+	#font ul li span{
+		display:block;
+		width:50px;
+		height:50px;
+		line-height:50px;
+		text-align:right;
+		float:left;
+	}
+	#font ul li .roll{
+		width:290px;
+		height:50px;
+		float:left;
+		line-height:50px;
+		padding-left:30px;
+	}
+	#font ul li .roll .move{
+		width:200px;
+		height:12px;
+		display:inline-block;
+		background:#fff;
+		margin-left:15px;
+		margin-right:15px;
+		border-radius:10px;
+		background-size:cover;
+		border:1px solid #fff;
+		position:relative;
+	}
+	#font ul li .roll .move .prog{
+		position:absolute;
+		top:0px;
+		width:0px;
+		height:12px;
+		border-radius:10px 0 0 10px;
+		background:url("images/slider-bar.png") bottom;
+	}
+	#font ul li .roll .move .prog .but{
+		width:22px;
+		height:22px;
+		position:absolute;
+		top:-3px;
+		background:url("images/dot-bg.png") no-repeat;
+		cursor:pointer;
+		left:0px;
+	}
+		</style>
+	</head>
+	<body>
+	<div id="box">
+		<div id="show">今天天气真热！！！！</div>
+		<div id="font">
+			<ul>
+				<li>
+					<span>字号</span>
+					<div class="roll">
+						8
+							<div class="move">
+								<div class="prog">
+									<div class="but"></div>
+								</div>
+							</div>
+						40px
+					</div>
+				</li>
+				<li>
+					<span>颜色R</span>
+					<div class="roll">
+						0
+							<div class="move">
+								<div class="prog">
+									<div class="but"></div>
+								</div>
+							</div>
+						255
+					</div>
+				</li>
+				<li>
+					<span>G</span>
+					<div class="roll">
+						0
+							<div class="move">
+								<div class="prog">
+									<div class="but"></div>
+								</div>
+							</div>
+						255
+					</div>
+				</li>
+				<li>
+					<span>B</span>
+					<div class="roll">
+						0
+							<div class="move">
+								<div class="prog">
+									<div class="but"></div>
+								</div>
+							</div>
+						255
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	</body>
+ <script>
+	var oBut=document.getElementsByClassName('but');
+	var oProg=document.getElementsByClassName('prog');
+	var oFont=document.getElementById('show');
+	var width=[0,0,0,0];
+	var rgb=["00","00","00"];
+	for(let i=0;i<oBut.length;i++){
+		oBut[i].onmousedown=function(e){//点击
+			e=e||window.event;
+			this.x=e.clientX;
+			var thisIndex=this;
+			var lastLeft=width[i];
+			document.onmousemove=function(e){
+				e=e||window.event;
+				width[i]=e.clientX-thisIndex.x+lastLeft;
+				if(width[i]>180)width[i]=180;
+				if(width[i]<0)width[i]=0;
+				oBut[i].style.left=width[i]+'px';
+				oProg[i].style.width=width[i]+'px';
+				if(i==0){
+					oFont.style.fontSize=width[i]/180*40+8+"px";
+				}else{
+					var num=parseInt(width[i]/180*255);
+					//var rgb=""
+					if(num<16){
+						rgb[i-1]="0"+num.toString(16);
+					}else{
+						rgb[i-1]=num.toString(16);
+					}
+					oFont.style.color="#"+rgb[0]+rgb[1]+rgb[2];
+					console.log(rgb);//转为16进制字符
+				}
+			}
+			document.onmouseup=function(){
+				this.onmousemove=null;
+				this.onmouseup=null;
+			}
+		}
+	}
+ </script>
+</html>

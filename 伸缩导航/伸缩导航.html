@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>伸缩导航</title>
+  <style>
+	*{margin:0;padding:0;}
+	body{background:#009966;}
+	#nav{
+		width:210px;
+		margin:20px 30px;
+		background:#663333;
+	}
+	#nav h1{
+		font-size:35px;
+		text-align:center;
+		color:#fff;
+		line-height:50px;
+	}
+	#nav ul li{
+		list-style:none;
+		line-height:35px;
+		border-top:2px solid white;
+		text-indent:35px;/*首行缩进*/
+	}
+	.active{
+		background:#6633ff;
+	}
+	#nav .con{
+		display:none;
+	}
+	#nav .con p{
+		line-height:30px;
+		font-size:15px;
+		text-indent:60px;
+		background:#aaa;
+		border-bottom:1px solid #999;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="nav">
+		<h1>课程列表</h1>
+		<ul>
+			<li>
+				<div class="title">
+					<img src="images/img1.png">
+					&nbsp;&nbsp;&nbsp;个人信息
+				</div>
+				<div class="con">
+					<p>电话</p>
+					<p>姓名</p>
+					<p>QQ</p>
+					<p>兴趣</p>
+				</div>
+			</li>
+			<li>
+				<div class="title">
+					<img src="images/img1.png">
+					&nbsp;&nbsp;&nbsp;个人课表
+				</div>
+				<div class="con">
+					<p>C++</p>
+					<p>Java</p>
+					<p>数据结构</p>
+					<p>算法分析</p>
+				</div>
+			</li>
+			<li>
+				<div class="title">
+					<img src="images/img1.png">
+					&nbsp;&nbsp;&nbsp;专业学习
+				</div>
+				<div class="con">
+					<p>HTML5</p>
+					<p>PHP</p>
+					<p>JavaScript</p>
+					<p>Angular</p>
+				</div>
+			</li>
+			<li>
+				<div class="title">
+					<img src="images/img1.png">
+					&nbsp;&nbsp;&nbsp;课程介绍
+				</div>
+				<div class="con">
+					<p>电话</p>
+					<p>姓名</p>
+					<p>QQ</p>
+					<p>兴趣</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+ </body>
+	<script src="js/jquery.js"></script>
+	<script>
+		$('#nav ul li').click(function(){
+			$(this).find(".con").slideToggle();//完成打开折叠方法
+			$(this).find(".title").addClass("active").parent().siblings().find(".title").removeClass("active");
+		})
+	</script>
+</html>

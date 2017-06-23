@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>多边形效果</title>
+	<style>
+		*{margin:0;padding:0;}
+		body{background:url('images/bodyBg.jpg');
+			background-size:cover;/*等比缩放*/
+		}
+		#nav{
+			width:980px;
+			height:300px;
+			margin:70px auto;
+		}
+		li{list-style:none;}
+		#nav ul li.six{
+			margin-left:100px;
+		}
+		#nav ul li{
+			position:relative;
+			width:180px;
+			height:105px;
+			background:rgba(0,0,0,0.5);
+			float:left;
+			margin:30px 5px;
+		}
+		/*伪元类多边形效果
+			content:必须存在
+		*/
+		#nav ul li:before,#nav ul li:after{
+			content:'';
+			position:absolute;
+			width:180px;
+			height:105px;
+			background:rgba(0,0,0,0.5);
+			transform:rotate(60deg);
+		}
+		#nav ul li:after{
+			transform:rotate(120deg);
+		}
+		#nav ul li img{
+			position:absolute;
+			z-index:5;
+			top:0;left:0;right:0;bottom:0;
+			margin:auto;
+			transition:0.5s;/*动画执行时间*/
+		}
+		#nav ul li:hover img{
+			transform:rotate(360deg) scale(1.5);/*缩放1.5倍*/
+
+		}
+	</style>
+ </head>
+ <body>
+	<div id="nav">
+		<ul>
+			<li><img src="images/1.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/2.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/3.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/4.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/5.png" width="80" height="80" alt="图标"></li>
+			<li class="six"><img src="images/6.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/7.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/8.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/8.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/10.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/11.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/12.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/13.png" width="80" height="80" alt="图标"></li>
+			<li><img src="images/14.png" width="80" height="80" alt="图标"></li>
+		</ul>
+	</div>
+ </body>
+</html>
