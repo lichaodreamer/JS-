@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>全屏滚轮</title>
+		<meta name="" content="">
+		<meta name="" content="">
+		<style>
+			*{margin:0;padding:0;}
+			html{
+				width:100%;
+				height:100%;
+			}
+			body{
+				width:100%;
+				height:100%;
+				overflow:hidden;
+			}
+			.box{
+				width:100%;
+				height:100%;
+				background:url("images/1.jpg");
+				background-size:cover;
+				background-position:center;
+			}
+			#icon{
+				position:fixed;
+				left:50px;
+				top:50%;
+				width:30px;
+				height:100px;
+			}
+			#icon ul li{
+				list-style-type:none;
+				width:25px;
+				height:25px;
+				border:2px solid #fff;
+				border-radius:50%;
+				margin:10px;
+			}
+			#icon ul li.curr{
+				background:#fff;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="box">
+		</div>
+		<div class="box" style="background-image:url(images/2.jpg)"></div>
+		<div class="box" style="background-image:url(images/3.jpg)"></div>
+		<div class="box" style="background-image:url(images/4.jpg)"></div>
+		<div id="icon">
+			<ul>
+				<li class="curr"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery.mousewheel.js"></script>
+		<script>
+			var h = $("body").height();
+			var n = 0;
+			var nowTime = new Date();
+			$(window).resize(function(){
+				h =  $("body").height();
+				$(document).scrollTop(n*h);
+			})
+			$(document).mousewheel(function(ev,dr){
+				if (new Date() - nowTime > 1000)
+				{
+					nowTime = new Date();
+					if (dr<0)
+					{
+						n++;
+						if(n>3)n=0;
+					}else{
+						n--;
+						if(n<0)n=3;
+					}
+
+					play();
+				}
+			});
+			setTimeout(function(){
+				$(document).scrollTop(0);
+			},30)
+			$("#icon ul li").click(function(){
+				n = $(this).index();
+				play();
+			});
+			function play(){
+				$("html,body").animate({"scrollTop":n*h+"px"},500);
+				$("#icon ul li").eq(n).addClass("curr").siblings().removeClass("curr");
+			}
+		</script>
+	</body>
+</html>

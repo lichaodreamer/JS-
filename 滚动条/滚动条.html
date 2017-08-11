@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>滚动条</title>
+  <style>
+	*{margin:0px;padding:0px;}
+	html{height:100%}
+	body{
+		height:100%;
+		background:url(images/bg.jpg) no-repeat;
+		background-size:cover;
+	}
+	#box{
+		position:fixed;
+		left:50px;
+		bottom:30px;
+		width:600px;
+		height:440px;
+		border:1px solid #eee;
+		border-radius:10px;
+		overflow:hidden;
+	}
+	.content{
+		width:560px;
+		height:400px;
+		margin:20px;
+	}
+	.content h1{
+		font-size:20px;
+		color:#cb986d;
+	}
+	.content p{
+		color:#cb986d;
+		font-size:15px;
+		line-height:31px;
+	}
+	.content img{
+		margin-right:20px;
+	}
+	.sroll{
+		position:absolute;
+		top:60px;
+		right:2px;
+		width:16px;
+		height:320px;
+		background:url(images/scroll_bar.png);
+	}
+	.sroll-bar{
+		position:absolute;
+		left:-6px;
+		top:0px;
+		width:26px;
+		height:12px;
+		background:url("images/scroll.png");
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="content">
+			<h1>个人中心</h1>
+			<p>
+				长沙市索菲亚健康咨询管理有限公司创办于2002年，秉承“专业、专注、专效”的企业精神，经过十年发展和美丽沉淀，现已发展成为集健康养生、美容美体、教育培训为一体的美容事业连锁机构。目前在香港及广州备有贸易公司，湖南省拥有24家连锁店、1所美容培训学校、员工500余名，总营业面积上万平方米。索菲亚以传播健康为企业使命，致力弘扬中医养生美容文化，为数万名尊贵名媛提供了高品质的服务，深得顾客的厚爱与赞美，在美容行业享誉极高，口碑良好，被公认为专业美容市场的知名品牌。
+			</p>
+			<img src="images/2.jpg" />
+			<img src="images/2.jpg" />
+			<p>
+				长沙市索菲亚健康咨询管理有限公司创办于2002年，秉承“专业、专注、专效”的企业精神，经过十年发展和美丽沉淀，现已发展成为集健康养生、美容美体、教育培训为一体的美容事业连锁机构。目前在香港及广州备有贸易公司，湖南省拥有24家连锁店、1所美容培训学校、员工500余名，总营业面积上万平方米。索菲亚以传播健康为企业使命，致力弘扬中医养生美容文化，为数万名尊贵名媛提供了高品质的服务，深得顾客的厚爱与赞美，在美容行业享誉极高，口碑良好，被公认为专业美容市场的知名品牌。
+			</p>
+			<img src="images/2.jpg" />
+			<img src="images/2.jpg" />
+			<p>
+				长沙市索菲亚健康咨询管理有限公司创办于2002年，秉承“专业、专注、专效”的企业精神，经过十年发展和美丽沉淀，现已发展成为集健康养生、美容美体、教育培训为一体的美容事业连锁机构。目前在香港及广州备有贸易公司，湖南省拥有24家连锁店、1所美容培训学校、员工500余名，总营业面积上万平方米。索菲亚以传播健康为企业使命，致力弘扬中医养生美容文化，为数万名尊贵名媛提供了高品质的服务，深得顾客的厚爱与赞美，在美容行业享誉极高，口碑良好，被公认为专业美容市场的知名品牌。
+			</p>
+			<img src="images/2.jpg" />
+			<img src="images/2.jpg" />
+		</div>
+		<div class="sroll">
+			<div class="sroll-bar"></div>
+		</div>
+	</div>
+ </body>
+ <script>
+	var oBar=document.getElementsByClassName("sroll-bar")[0];
+	var oScroll=document.getElementsByClassName("sroll")[0];
+	var oCon=document.getElementsByClassName("content")[0];
+	var maxY=oScroll.offsetHeight-oBar.offsetHeight;
+	oBar.onmousedown=function(e){
+		var e=e||window.event;
+		var y=e.clientY-this.offsetTop;
+		document.onmousemove=function(e){
+			var t=e.clientY-y;
+			if(t<0){
+				t=0;
+			}
+			else if(t>maxY){
+				t=maxY;
+			}
+			oBar.style.top=t+"px";
+			var scale=t/maxY;
+			oCon.style.marginTop=-scale*oCon.offsetHeight+"px";
+		}
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+		}
+	}
+ </script>
+</html>

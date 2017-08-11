@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>数据库</title>
+ </head>
+ <body>
+	
+ </body>
+ <script>
+	var module=function(){
+		var searcher={};
+		var index=0;
+		var person=[
+			{
+				'name':"xiaoming",
+				'age':12,
+				'job':'JAVA工程师'
+			},
+			{
+				'name':"haiya",
+				'age':22,
+				'job':'UI工程师'
+			},
+			{
+				'name':"xuanwu",
+				'age':32,
+				'job':'PHP工程师'
+			}
+		];
+		function mySelect(item){
+			for(var i=0,len=person.length;i<len;i++){
+				if(person[i]['name']==item){
+					searcher=person[i];
+					index=i;
+					return i;
+				}
+			}
+		}
+		function myUpdate(index,key,val){
+			person[index][key]=val;
+		}
+
+		return {
+			select:function(item){
+				mySelect(item);
+			},
+			set:function(item,key,value){
+				myUpdate(mySelect(item),key,value);
+			},
+			get:function(cb){
+				cb&&cb(person[index]);
+			}
+		}
+	}
+	var newPerson = module();
+	newPerson.select('xiaoming');
+	newPerson.get(function(res){
+		console.log(res)
+	});
+ </script>
+</html>

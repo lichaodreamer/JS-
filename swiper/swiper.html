@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>swiper</title>
+  <style>
+	*{margin:0;padding:0;}
+	li{list-style:none;}
+	.container{
+		/* 弹性盒模型*/
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		position:relative;
+		width:100vw;
+		height:100vh;
+		background:#f5f5f5;
+	}
+	.container .bg_pic{
+		width:100%;
+		height:100%;
+	}
+	.container .bg_pic img{
+		display:block;
+		width:100%;
+		height:100vh;
+		filter:blur(10px);
+		/* css3滤镜效果 */
+	}
+	.swiper{
+		position:absolute;
+		overflow:hidden;
+		width:100vw;
+		height:60vh;
+	}
+	.swiper ul{
+		width:500%;
+		height:60vh;
+	}
+	.swiper ul li{
+		width:100vw;
+		height:60vh;
+		float:left;
+	}
+	.swiper ul li img{
+		display:block;
+		width:60%;
+		height:90%;
+		margin:0 auto;
+	}
+  </style>
+ </head>
+ <body>
+	<section class="container">
+		<section class="bg_pic">
+			<img src="images/1.jpg" />
+		</section>
+		<section class="swiper">
+			<ul>
+				<li><img src="images/1.jpg"></li>
+				<li><img src="images/2.jpg"></li>
+				<li><img src="images/3.jpg"></li>
+				<li><img src="images/4.jpg"></li>
+				<li><img src="images/5.jpg"></li>
+			</ul>
+		</section>
+	</section>
+ </body>
+ <script>
+ 		var oSwiper=document.querySelector('.swiper');
+ 		var oUl=oSwiper.querySelector('ul');
+ 		var aLi=oUl.querySelectorAll('li');
+ 		var length=aLi.length;
+		var startX=0;//ul初始化tx
+		var startPoint=0;//手指对象
+		var num=0;//初始时第几张
+		var wW=oSwiper.offsetWidth;
+		//重置宽度
+ 		//初始化函数
+		function init(){
+			oUl.style.width=length+"00%";
+			cssTransform(oUl,'translateX',0);
+			cssTransform(oUl,'translateZ',0);
+			//Z用来兼容水平移动时不卡
+
+		}
+		init();
+		//拖拽组
+		//移动端不用时间绑定，用事件监听**
+		oSwiper.addEventListener('touchstart',function(e){
+
+			oUl.style.transition='';
+			startPoint=e.changedTouches[0];//切换后第一个手指
+			startX=cssTransform(oUl,'translateX');//获取
+		},false);
+		//false是事件捕获顺序
+
+		oSwiper.addEventListener('touchmove',function(e){
+			var newPoint=e.changedTouches[0];
+			var disX=newPoint.pageX-startPoint.pageX;
+			var translateX=startX+disX;//移动距离
+			cssTransform(oUl,'translateX',translateX);
+		},false);
+		//松开手指
+		oSwiper.addEventListener('touchend',function(){
+			//存值
+			var l=cssTransform(oUl,'translateX');
+			num=Math.round(-l/wW);
+			autoplay();
+			console.log(num);
+		},false);
+		//动画
+		function autoplay(){
+			oUl.style.transition='0.5s';
+			cssTransform(oUl,'translateX',-num*wW)
+		}
+		//对象 属性 更改的值
+		//自定义一个属性。不然css3中的属性获取不到
+		function cssTransform(obj,attr,val){
+			obj.transform=obj.transform||{};
+			if(arguments.length===3){//3个属性是设置
+				obj.transform[attr]=val;//赋值
+				var strVal=''; 
+				for(var key in obj.transform){
+					strVal+=key+'('+obj.transform[key]+'px)';
+				}
+				obj.style.transform=strVal;
+			}else if(arguments.length===2){
+				val = obj.transform[attr];
+				if(typeof val==='undefined'){
+					val=0;
+				}
+				return val;
+			}
+		}
+ </script>
+ <!-- 移动开发适配
+		rem
+		vw vh 百分比,移动端宽、高
+		媒体查询
+		viewport
+
+		querySelector和querySelectorAll获取元素
+		是H5的API 试用于移动端
+	-->	
+</html>

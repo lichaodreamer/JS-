@@ -1,0 +1,139 @@
+<!--
+	声明文档类型:html
+	作用:符合W3C的统一标准规范
+	每个浏览器对html css js都有自己的编译模式(兼容模式)
+-->
+<!doctype html>
+<html><!--根目录节点标签-->
+	<head><!--头部 规定一些信息 用户看不到(非可视化标签)-->
+		<meta charset="utf-8"><!--字符编码：国际编码  gbk gb2312中文编码-->
+		<!--网页文档的三要素-->
+		<title>一号店带进度条的轮播特效-玄武老师</title><!--网页文档标题-->
+		<meta name="keywords" content="关键词:提供给搜索引擎搜索网站">
+		<meta name="description" content="描述:对网页内容的大概介绍">
+		<style>/* css 样式 */
+			body,ul,li,p{/*通用选择器:选择到所有的标签*/
+				margin:0;/*外边距*/
+				padding:0;/*内边距*/
+				/*
+					单独设置:
+					margin-top:上
+					margin-bottom:下
+					margin-left:左
+					margin-right:右
+
+					统一设置
+					margin:10px;上下左右都相等10
+					margin:10px 20px;上下10  左右20
+					margin:10px 20px 30px;上10 左右20 下 30
+					margin:10px 20px 30px 40px;顺时针方向 上右下左
+				*/
+			}
+			#box{/* # id选择器 */
+				position:relative;/*相对定位:参考物  相对于自己的位置定位*/
+				width:330px;/*宽度*/
+				height:360px;/*高度*/
+				background:red;/*背景颜色*/
+				margin:100px auto;/*上下100px 左右自动(居中)*/
+				overflow:hidden;/*超出隐藏*/
+			}
+			#box ul.img{/* . class类选择器*/
+				position:relative;/*相对定位*/
+				left:0px;
+				width:990px;
+			}
+			#box ul.img li{/*混合选择器*/
+				list-style:none;/*去除前面的小黑圆点*/
+				float:left;/*浮动：与父元素左端对齐依次的往右端显示 显示不下就换行显示  漂浮起来了 原来所占据的空间不存在了*/
+			}
+			#box ul.icon{
+				position:absolute;/*绝对定位:漂浮起来了  层级 相对于有定位属性(relative absolute fixed)的最近的父元素定位*/
+				left:110px;/*距离参考物左端的距离*/
+				bottom:20px;/*距离参考物下端的距离*/
+			}
+			#box ul.icon li{
+				width:30px;
+				height:6px;
+				background:#000;
+				float:left;
+				margin-right:10px;
+				list-style:none;
+			}
+			#box ul.icon li p{
+				width:0px;
+				height:6px;
+				background:red;
+			}
+			/*
+				代码书写的企业标准规范:为什么需要规范？？
+				1、提高代码的可维护利用性（书写规范  命名规范 注释清晰）
+				2、网站加载的速度(减少向服务器的请求次数、减小文件的大小:代码累赘、提高代码的执行效率)
+
+				width:100%;height:100%;
+				1.非定位元素 相对于父元素计算
+				2.定位元素 相对于参考物计算
+			*/
+		</style>
+	</head>
+	<body><!--身体 可视化标签-->
+		<!--盒子模型标签 div 宽度  高度 位置 躯干-->
+		<div id="box"><!--id="自定义的名称" 唯一的(身份证号) 命名规范(见名之意:用有语义的英文单词)-->
+			<ul class="img"><!--无序列表标签-->
+				<li><img src="images/1.jpg"></li>
+				<li><img src="images/2.jpg"></li>
+				<li><img src="images/3.jpg"></li>
+			</ul>
+			<ul class="icon"><!--class 可重复的(姓名)-->
+				<li><p></p></li>
+				<li><p></p></li>
+				<li><p></p></li>
+			</ul>
+		</div>
+		<script src="js/jquery.js"></script>
+		<script>
+			//alert($);//弹出jq的代理函数 $
+			//$("ul.icon li")找到所有的三个小图标
+			var n = 0;//全局变量
+			var timer = null;
+			var $p = $("#box ul.icon li p");//把p存储的地址赋值给$p这个变量
+			var $img = $("#box ul.img");
+			$("ul.icon li").hover(function(){//鼠标移上去实现什么效果
+				//获取鼠标移上去的图标的索引 $(this)鼠标移到谁上面就指代谁
+				n = $(this).index();
+				//eq(n)获取到索引为n的p
+				$(this).find("p").css("width","30px").parent().siblings().find("p").css("width","0px");
+				$img.animate({"left":-330*n+"px"},500);
+				n+=1;
+			});
+			//鼠标移动到大盒子上面停止定时器
+			$("#box").hover(function(){//鼠标移上去停止定时器
+				clearInterval(timer);//清楚定时器
+				$p.eq(n-1).stop().css("width","30px");
+			},function(){//鼠标移开开启定时器
+				$p.eq(n-1).stop().css("width","0px");
+				n-=1;//让n减去一个1
+				auto();
+				timer = setInterval(auto,2500);
+			});
+
+			timer = setInterval(auto,2500);
+			//事件调用的方法:  直接掉auto()/function(){}()、事件调用
+			//a.onclick = function(){}  a.onclick = auto;
+			function auto(){
+				$p.eq(n).animate({"width":"30px"},2000,function(){
+						//等动画执行完成再执行什么
+						$(this).css("width","0px");
+						//animate()自定义动画500毫秒
+						//console.log(n);//在控制台输出
+						$img.animate({"left":-330*n+"px"},500);
+					});
+				n++;//n= n+1
+				n%=3;// 0/3 = 0 余0 1/3 = 0余1 2/3 = 0 余2 3/3 = 1余0 4/3=1 余1
+				/*if (n>2)//0 1 2 
+				{
+					n = 0
+				}*/
+			}
+		</script>
+	</body>
+</html>

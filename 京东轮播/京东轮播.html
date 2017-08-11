@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>京东轮播</title>
+  <style>
+	*{margin:0px;padding:0px;}
+	#banner{
+	position:relative;
+		width:730px;
+		height:454px;
+		margin:50px auto;
+	}
+	.img{
+		width:730px;
+		height:454px;
+	}
+	.img ul li{
+		list-style:none;
+		display:none;
+	}
+	.img ul li.curr{
+		/* opacity:1; */
+		display:block;
+	}
+	.icon{
+		position:absolute;
+		width:200px;
+		height:30px;
+		top:425px;
+		left:300px;
+	}
+	.icon ul li{
+		list-style:none;
+		float:left;
+		width:20px;height:20px;
+		margin:5px;
+		color:#fff;
+		background:#000;
+		text-align:center;
+		line-height:20px;
+		border-radius:50%;
+	}
+	.icon ul li.icolor{background:red;}
+	.btn div{
+		position:absolute;
+		width:30px;
+		height:60px;
+		top:43%;
+		color:#fff;
+		font-size:40px;
+		text-align:center;
+		line-height:55px;
+		background:rgba(0,0,0,0.2);
+		cursor:pointer;
+	}
+	.btn div.left{
+		left:0;
+	}
+	.btn div.right{
+		right:0;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="banner">
+		<div class="img">
+			<ul>
+				<li class="curr"><img src="images/1.jpg"></li>
+				<li><img src="images/2.jpg"></li>
+				<li><img src="images/3.jpg"></li>
+				<li><img src="images/4.jpg"></li>
+				<li><img src="images/5.jpg"></li>
+				<li><img src="images/6.jpg"></li>
+			</ul>
+		</div>
+		<div class="icon">
+			<ul>
+				<li class="icolor">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+			</ul>
+		</div>
+		<div class="btn">
+			<div class="left"> < </div>
+			<div class="right"> > </div>
+		</div>
+	</div>
+ </body>
+ <script src="js/jquery-1.11.1.min.js"></script>
+ <script>
+	var index=0;
+	var timer=null;
+	var $img_li=$(".img ul li");
+	var $icon_li=$(".icon ul li");
+	function change(){
+		$img_li.eq(index).addClass("curr").siblings().removeClass("curr");
+		$icon_li.eq(index).addClass("icolor").siblings().removeClass("icolor");
+	}
+	$(".right").click(function(){
+		index++;
+		if(index==6)index=0;
+		change();
+	})
+	$(".left").click(function(){
+		index--;
+		if(index==-1)index=5;
+		change();
+	})
+	$("icon").hover(function(){
+		index=$(this).index();
+		change();
+	});
+	autoplay();
+	function autoplay(){
+		timer=setInterval(function(){
+			index++;
+			if(index>5)index=0;
+			change();
+		},2000)
+	}
+	
+	$("#banner").hover(function(){
+		$(".btn").show();
+		clearInterval(timer);
+	},function(){
+		$(".btn").hide();
+		autoplay();
+	})
+ </script>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale:1.0,maximum-scale:2.0,user-scalable:no">
+  <title>图片搜索</title>
+  <style>
+	*{margin:0px;padding:0px;}
+	html,body{overflow:hidden;}
+	#box{
+		display:flex;
+		flex-direction:column;/*row*/
+		justify-content:space-between;/*主轴方向排列方式，两端先对其，中间空白的*/
+		align-items:center;/*辅轴居中*/
+		width:100vw;
+		height:100vh;
+	}
+	#box .search{
+		position:relative;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		width:100%;
+		height:13vh;
+		background:#3399ff;
+	}
+	#box .search #input{
+		width:70%;
+		height:4vh;
+		border-radius:50px;
+		outline:none;/*聚焦后取消蓝色框*/
+	}
+	#box .search #btn{
+		position:absolute;
+		width:5vw;
+		height:3vh;
+		right:17vw;
+		background:url("timg.jpg") center/cover;
+		/* 调整大小，不然图片太大了 */
+	}
+	#box .content{
+		display:flex;
+		flex-dirction:row;
+		justify-content:space-around;/*均分布局*/
+		align-items:center;
+		width:100%;
+		height:85vh;
+		overflow-y:scroll;
+	}
+	.content div{
+		position:relative;
+		top:107vh;
+		width:48%;
+		background:#e1e1e1;
+	}
+	.content div img{
+		width:100%;
+		height:auto;
+	}
+  </style>
+ </head>
+ <body>
+  <div id="box">
+	<div class="search">
+		<input id="input" type="text" />
+		<i id="btn"></i>
+	</div>
+	<div class="content">
+		<div class="left"></div>
+		<div class="right"></div>
+	</div>
+  </div>
+ </body>
+ <script>
+	var oInput=document.querySelector('#input');
+	var oBtn=document.querySelector("#btn");
+	var oLeft=document.querySelector(".left");
+	var oRight=document.querySelector(".right");
+	var keyword="";
+	oBtn.onclick=function(){
+		keyword=oInput.value;//赋值关键词
+		createScript(keyword);
+	}
+	function createScript(keyword){
+		document.body.removeChild(document.body.lastChild);
+		var oScript=document.createElement("script");
+		oScript.src="http://image.baidu.com/search/acjson?tn=resultjson_com&ipn=0&rn=30&ie='utf8'&word='"+keyword+"'&callback=getData";
+		document.body.appendChild(oScript);
+	}
+	function getData(res){
+		var dataList=res.data
+		var len=dataList.length;
+		//减一是因为，获取数据的最后一项是空
+		for(var i=0;i<len-1;i++){
+			var oImg=document.createElement("img");
+			oImg.src=dataList[i].thumbURL;	
+			zoom(oImg);
+		}
+	}
+	function zoom(img){
+		img.onload=function(){//图片加载完成
+			var iH=img.offsetHeight;
+			var lH=oLeft.offsetHeight;
+			var rH=oRight.offsetHeight;
+			if(lH<=rH){
+				lH+=iH;
+				oLeft.appendChild(img);
+			}else{
+				rH+=iH;
+				oRight.appendChild(img);
+			}
+		}
+	}
+ </script>
+</html>
