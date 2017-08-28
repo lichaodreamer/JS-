@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>图片浏览</title>
+  <style>
+	html,body,div,ul,li,img{margin:0;padding:0;}
+	#imgList{
+		position:relative;
+		width:912px;
+		height:570px;
+		margin:20px auto;
+	}
+	#imgList ul li{
+		list-style:none;
+		width:300px;
+		height:186px;
+		float:left;
+		padding:2px;
+	}
+	img{
+		width:100%;
+		height:100%;
+	}
+	.bigImg{
+		position:absolute;
+		top:80px;
+		left:200px;
+		width:510px;
+		height:410px;
+		padding:5px;
+		background:#fff;
+	}
+	.bigImg .left{
+		position:absolute;
+		top:180px;
+		left:-40px;
+		width:18px;
+		height:35px;
+		background:url("images/dirl.png");
+	}
+	.bigImg .right{
+		position:absolute;
+		top:180px;
+		left:545px;
+		width:18px;
+		height:35px;
+		background:url("images/dirr.png");
+	}
+  </style>
+ </head>
+ <body>
+	<div id="imgList">
+		<ul>
+			<li><img src="images/big1.jpg"></li>
+			<li><img src="images/big2.jpg"></li>
+			<li><img src="images/big3.jpg"></li>
+			<li><img src="images/big4.jpg"></li>
+			<li><img src="images/big5.jpg"></li>
+			<li><img src="images/big6.jpg"></li>
+			<li><img src="images/big7.jpg"></li>
+			<li><img src="images/big8.jpg"></li>
+			<li><img src="images/big9.jpg"></li>
+		</ul>
+		<div class="bigImg" style="display:none">
+			<div class="left"></div>
+			<img src="images/big9.jpg">
+			<div class="right"></div>
+		</div>
+	</div>
+ </body>
+ <script src="js/jquery.js"></script>
+ <script>
+	var bigImg=$(".bigImg");
+	var index=0;
+	var srcl="";
+	$("#imgList ul li").click(function(e){
+		srcl=$(this).find("img").attr("src");//得到点击图片的src
+		bigImg.find("img").attr("src",srcl);
+		bigImg.show(1000);
+		index=$(this).index();
+	})
+	$(".left").click(function(){
+		if(index==0){index=9;}
+		bigImg.find("img").attr("src","images/big"+index+".jpg");
+		index--;
+	});
+	$(".right").click(function(){
+		index++;
+		if(index==10){index=1;}
+		bigImg.find("img").attr("src","images/big"+index+".jpg");
+	});
+	$(document).dblclick(function(e){
+		bigImg.hide(1000);
+	})
+ </script>
+</html>

@@ -1,0 +1,141 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!--网页文档的三要素-->
+		<title>微信二维码电子名片生成</title><!--网页文档的标题-->
+		<meta name="keywords" content="关键词1,关键词2"><!--提供给搜索引擎搜索网站-->
+		<meta name="description" content="描述:对网页内容的大概的介绍">
+		<style>/*css样式*/
+			*{/*通用选择器:选择到所有的标签元素*/
+				margin:0;/*外边距*/
+				padding:0;/*内边距*/
+			}
+			body{
+				background:url("images/bg5.jpg");
+				background-size:cover;/*背景尺寸：等比例的缩放*/
+			}
+			#box{/* # id选择器 */
+				width:1000px;/*宽度*/
+				height:320px;/*高度*/
+				background:rgba(0,0,0,0.5);/*透明背景颜色: red红色 green绿色 blue蓝色0-255 a透明度 0-1*/
+				margin:250px auto;/*上下为250 左右自动(居中)*/
+			}
+			.info{/* . class类选择器*/
+				width:550px;
+				height:300px;
+				float:left;
+			}
+			.info ul li{/*混合选择器*/
+				list-style:none;/*去除前面的小黑圆点*/
+				color:#fff;/*文本颜色*/
+				margin:15px;
+				float:left;/*左浮动:与父元素的左端对齐 一次的往右端显示 显示不下就换行接着显示*/
+			}
+			.info ul li input{
+				width:190px;
+				height:30px;
+				border-radius:10px;/*边框圆角*/
+				border:0;/*去除默认的边框线*/
+				outline:0;/*轮廓*/
+				padding-left:10px;/*左内边距*/
+			}
+			.info ul li.btn{
+				width:420px;
+				height:40px;
+				background:#3C9D41;
+				text-align:center;/*居中*/
+				line-height:40px;/*行高*/
+				border-radius:10px;
+				margin-left:77px;
+			}
+			.qrcode{
+				width:260px;
+				height:260px;
+				background:#ccc;
+				float:right;
+				margin:20px;
+				text-align:center;
+				
+			}
+			.qrcode p{
+				padding-top:90px;
+			}
+		</style>
+	</head>
+	<body><!--身体 可视化标签-->
+		<!--div 盒子模型标签 宽度 高度 位置 边框 背景(css样式)-->
+		<div id='box'><!--id="自定义的名称" 唯一的(身份证号) 命名规范(见名知意:用有语义的英文单词) -->
+			<div class='info'><!--class 可重复(姓名)-->
+				<ul><!--无序列表标签-->
+					<li>
+						<span>姓名:</span>
+						<input type='text' id="name">
+					</li>
+					<li>
+						<span>公司:</span>
+						<input type='text' id="comp">
+					</li>
+					<li>
+						<span>职务:</span>
+						<input type='text' id="work">
+					</li>
+					<li>
+						<span>地址:</span>
+						<input type='text' id="adress">
+					</li>
+					<li>
+						<span>手机:</span>
+						<input type='text' id="phone">
+					</li>
+					<li>
+						<span>邮箱:</span>
+						<input type='text' id="email">
+					</li>
+					<li>
+						<span>网址:</span>
+						<input type='text' id="web">
+					</li>
+					<li>
+						<span>备注:</span>
+						<input type='text' id="desc">
+					</li>
+					<li class="btn">
+						生成通讯录二维码
+					</li>
+				</ul>
+			</div>
+			<div class='qrcode' id='qrcode'><p>左侧输入内容<br>
+点击生成二维码</p></div>
+		</div>
+		<!--响应速度
+			提高代码的执行效率
+			减少向服务器的请求次数
+		-->
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/qrcode.js"></script>
+		<script type="text/javascript">
+			//什么元素 触发  什么事件 实现 什么效果(改变什么元素的什么属性)
+			//$(".btn")获取元素
+			//定义几个变量来存储input表单的内容  val()获取表单的value值
+			var name='',comp='',work='',adress='',phone='',email='',web='',desc='';
+			$(".btn").click(function(){
+				name = "FN:" + $("#name").val() + "\n";
+				comp = "ORG:" + $("#comp").val() + "\n";
+				work = "WORK:" + $("#work").val() + "\n";
+				adress = "ADR:" + $("#adress").val() + "\n";
+				phone = "TEL:" + $("#phone").val() + "\n";
+				email = "EMAIL:" + $("#email").val() + "\n";
+				web = "URL:" + $("#web").val() + "\n";
+				desc = "NOTE:" + $("#desc").val() + "\n";
+
+				var info = "BEGIN:VCARD\n" + name + comp + work + adress + phone + email + web + desc + "END:VCARD";
+				//console.log(info);//在控制台输出
+				$("#qrcode").html('');//先清空qrcode的内容
+				var qrcode = new QRCode('qrcode');//在id为qrcode的div里面来生成二维码
+				qrcode.makeCode(info);//生成二维码
+			});
+		</script>
+	</body>
+</html>

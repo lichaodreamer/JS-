@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>3音乐钢琴导航</title>
+		<meta name="keywords" content="关键词:提供给搜索引擎搜索网站">
+		<meta name="description" content="描述:对网页内容的大概介绍">
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			#nav{
+				width:972px;
+				height:42px;
+				margin:100px auto;
+				overflow:hidden;
+			}
+			#nav ul li{
+				position:relative;
+				list-style:none;
+				width:69px;
+				height:40px;
+				border:1px solid #ccc;
+				float:left;
+				padding-left:37px;
+				font-size:14px;
+				line-height:40px;
+				background:url("images/icon.png") no-repeat;
+				cursor:pointer;
+			}
+			#nav ul li p{
+				position:absolute;
+				left:0px;
+				top:40px;
+				width:106px;
+				height:40px;
+				z-index:-1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nav">
+			<ul>
+				<li style="background-position:12px 12px;">推荐网站
+					<p style="background:#ffcc66"></p>
+					<audio src="music/1.mp3"></audio>
+				</li>
+				<li style="background-position:12px -26px;">新闻头条
+					<p style="background:#ccff99"></p>
+					<audio src="music/2.mp3"></audio>
+				</li>
+				<li style="background-position:12px -105px;">电 视 剧
+					<p style="background:#ff6600"></p>
+					<audio src="music/3.mp3"></audio>
+				</li>
+				<li style="background-position:12px -64px;">最新电影
+					<p style="background:#6600ff"></p>
+					<audio src="music/4.mp3"></audio>
+				</li>
+				<li style="background-position:12px -265px;">小 游 戏
+					<p style="background:#00ff33"></p>
+					<audio src="music/5.mp3"></audio>
+				</li>
+				<li style="background-position:12px -146px;">小说大全
+					<p style="background:#33cccc"></p>
+					<audio src="music/6.mp3"></audio>
+				</li>
+				<li style="background-position:12px -310px;">旅游度假
+					<p style="background:#3333ff"></p>
+					<audio src="music/7.mp3"></audio>
+				</li>
+				<li style="background-position:12px -186px;">网上购物
+					<p style="background:#660000"></p>
+					<audio src="music/8.mp3"></audio>
+				</li>
+				<li style="background-position:12px -351px;">好药特惠
+					<p style="background:#99cc00"></p>
+					<audio src="music/9.mp3"></audio>
+				</li>
+			</ul>
+		</div>
+		<script src="js/jquery.js"></script>
+		<script>
+			$("#nav ul li").hover(function(){
+				//$(this)鼠标移动到谁上面就指代谁
+				$(this).find("p").stop().animate({"top":0},500);
+				$(this).find("audio").get(0).pause();
+				$(this).find("audio").get(0).currentTime = 0;
+				$(this).find("audio").get(0).play();//播放音乐
+			},function(){
+				$(this).find("p").stop().animate({"top":"40px"},500);
+				
+			});
+		</script>
+	</body>
+</html>

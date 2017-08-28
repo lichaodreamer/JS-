@@ -1,0 +1,183 @@
+<!doctype html><!--声明文档类型：html-->
+<html lang="en">
+	<head><!--头部-->
+		<meta charset="UTF-8"><!--字符编码:utf-8国际编码-->
+		<meta name="Keywords" content="关键词1,关键词2"><!--关键词-->
+		<meta name="Description" content="描述"><!--描述-->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+		<title>手机相册展示效果-玄武老师</title><!--网页标题-->
+		<script>
+			document.getElementsByTagName("html")[0].style.fontSize = document.documentElement.clientWidth/3+"px";
+		</script>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			body{
+				font-size:0.15rem;
+				background:#333;
+				font-family:"微软雅黑";
+			}
+			header{
+				position:relative;
+				width:100%;
+				height:0.45rem;
+				color:#fff;
+				text-align:center;
+				line-height:0.45rem;
+			}
+			a{
+				color:#fff;
+				text-decoration:none;
+			}
+			a.btn{
+				position:absolute;
+				top:0.15rem;
+				width:0.5rem;
+				height:0.25rem;
+				box-shadow:0 0 5px #000;
+				line-height:0.25rem;
+			}
+			a.btn:nth-child(1){
+				left:15px;
+				display:none;
+			}
+			a.btn:nth-child(2){
+				right:15px;
+			}
+			section{
+				position:relative;
+				width:100%;
+			}
+			section ul li{
+				position:absolute;
+				list-style:none;
+				width:1rem;
+				height:1rem;
+				background:url("images/1.jpg");
+				background-size:100% 100%;
+				border:1px solid #ccc;
+				box-sizing:border-box;
+				transition:left 1s,top 1s;/*css3动画过渡*/
+			}
+			footer{
+				position:fixed;
+				left:0;
+				bottom:0;
+				width:100%;
+				height:0.55rem;
+				background:#222;
+			}
+			footer a{
+				display:block;
+				width:1.5rem;
+				line-height:0.55rem;
+				float:left;
+				text-align:center;
+			}
+			footer a:nth-child(2){
+				border:1px solid #aaa;
+				box-sizing:border-box;
+			}
+		</style>
+	</head>
+	<body><!--身体-->
+		<header>
+			<a href="javascript:;" class="btn">删除</a>
+			手机相册
+			<a href="javascript:;" class="btn">选择</a>
+		</header>
+		<section>
+			<ul>
+				
+			</ul>
+		</section>
+		<footer>
+			<a href="javascript:;">手机相册</a>
+			<a href="javascript:;">所有相册</a>
+		</footer>
+		<script>
+			var oUl = document.getElementsByTagName("ul")[0];
+			var btn = document.getElementsByClassName("btn");
+			var html = '';
+			var move = [];//定义一个数组来保存被选中的li的序列号
+			for (var i=1;i<=16 ;i++ )
+			{
+				html += "<li style='background-image:url(images/"+i+".jpg)'></li>"
+			}
+			oUl.innerHTML = html;
+			var oLi = oUl.getElementsByTagName("li");
+			position();
+			btn[1].addEventListener("touchend",select,false);
+			btn[0].addEventListener("touchend",remove,false);
+			//封装选择的功能
+			var mark = true;
+			function select(){
+				if (mark)//选择功能
+				{
+					btn[1].innerHTML = "取消";
+					for (var i=0;i<oLi.length ;i++ )
+					{
+						oLi[i].index = i;//给每个Li添加一个自定义的序列号
+						oLi[i].onOff = true;//添加自定义属性来存储被点击的状态
+						oLi[i].addEventListener("touchend",cSelect,false);
+					}
+				}else{//取消功能
+					btn[1].innerHTML = "选择";
+					btn[0].style.display = "none";
+					for (var i=0;i<oLi.length ;i++ )
+					{
+						oLi[i].style.opacity = 1;
+						oLi[i].removeEventListener("touchend",cSelect,false);
+					}
+				}
+				mark = !mark;
+			}
+			//封装点击每个li选中的功能
+			function cSelect(){
+				if (this.onOff)
+				{
+					move.push(this.index);//把选中的Li的序列号存储到move数组里面
+					this.style.opacity = 0.2;
+					this.onOff = false;
+					btn[0].style.display = "block";
+				}else{
+					for (var i=0;i<move.length ; i++)
+					{
+						if (move[i] == this.index)
+						{
+							move.splice(i,1);//删除在i位置的值 1指代删除一个
+						}
+					}
+					this.style.opacity = 1;
+					this.onOff = true;
+				}
+			}
+			//封装删除功能 
+			function remove(){
+				//对添加进来的序列号进行排序
+				move = move.sort(function(a,b){
+					return a-b;
+				});
+				//pop()删除并返回数组的最后一个元素
+				while (move.length)
+				{
+					oUl.removeChild(oLi[move.pop()]);
+				}
+				this.style.display = "none";
+				mark = false;
+				select();
+				position();
+			}
+			//设置每个Li的定位值
+			function position(){
+				for (var i=0;i<oLi.length ;i++ )
+				{
+					oLi[i].style.left = i%3 +"rem";
+					oLi[i].style.top = Math.floor(i/3) +"rem";
+				}
+			}
+		</script>
+	</body>
+</html>
