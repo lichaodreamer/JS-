@@ -1,0 +1,33 @@
+body{
+	background-image: url(../image/bkg.gif);
+}
+.plogo{
+	padding-left: 20px;
+	color: red;
+	font-size: 80px;
+	font-family: "幼圆";
+}
+#tabs2 ul li{
+	color: red;
+}
+#tabs2 ul li a{
+	color: #8B7765;
+}
+#tabs3 ul li{
+	color: red;
+}
+#tabs3 ul li a{
+	color: #8B7765;
+}
+#tabs4 ul li{
+	color: red;
+}
+#tabs4 ul li a{
+	color: #8B7765;
+}
+.aa li a{
+	color: #000000;
+}
+.aa li a:hover{
+	color: red;
+}

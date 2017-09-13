@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>红楼梦</title>
+		<link href="css/style.css" rel="stylesheet"  />
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-2 column">
+					<img src="image/LOGO.gif" />
+				</div>
+				<div class="col-md-8 column">
+					<ul class="nav nav-tabs" style="padding-top: 40px;">
+						<li>
+							 <a href="#">首页</a>
+						</li>
+						<li>
+							 <a href="#">红楼文库</a>
+						</li>
+						<li>
+							 <a href="#">百味红楼</a>
+						</li>
+						<li>
+							 <a href="#">红楼故事</a>
+						</li>
+						<li>
+							 <a href="#">红楼之谜</a>
+						</li>
+						<li>
+							 <a href="#">红楼价值</a>
+						</li>
+						<li class="active">
+							 <a href="#">红楼投稿</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-2 column">
+					<div style="padding-top: 55px;"><a href="#" id="open">登录</a></div>
+				</div>
+			</div>
+			<div id="dialog">
+				<form>
+					<label>用户名：</label>
+					<input type="text" />
+					<label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+					<input type="password" />
+				</form>
+			</div>
+			<!--导航结束-->
+			<div class="container">
+				<div class="row clearfix">
+					<div class="col-md-2 column">
+						<img src="image/meng.gif" />
+					</div>
+					<div class="col-md-10 column">
+						<img src="image/daiyu.jpg" />
+						<img src="image/jiaxichun.png" />
+						<img src="image/jiayingchen.png" />
+						<img src="image/yuanchn.png" />
+						<img src="image/miaoyu.png" />
+						<img src="image/qiaojie.png" />
+						<img src="image/qinkeqing.png" />
+						<img src="image/shixiangyun.png" />
+						<img src="image/tanchun.png" />
+						<img src="image/wangxifeng.jpg" />
+						<img src="image/xuebaochai.png" />
+						<img src="image/liwan.png" /><br />
+						<hr />
+						<div class="container">
+							<div class="row clearfix">
+								<div class="col-md-2 column">
+								</div>
+								<div class="col-md-6 column">
+									<form action="#">
+										<label>标题：</label>
+										<input type="text" / id="auto"><br /><br />
+										<label>日期：</label>
+										<input type="text" id="datepicker"><br /><br />
+										<label>简介：</label>
+										<textarea cols="70"></textarea><br /><br />
+										<label>文件：</label>
+										<input type="file" /><br /><br />
+										<input type="submit" value="提交" />
+									</form>
+								</div>
+								<div class="col-md-4 column">
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<hr style="margin-top: 0px;color: #000000;margin-bottom: 5px;" />
+		<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-3 column">
+		</div>
+		<div class="col-md-6 column">
+			<a href="">地图</a>&nbsp&nbsp&nbsp<a href="">关于本站</a>&nbsp&nbsp&nbsp<a href="">联系我们 </a>&nbsp&nbsp&nbsp
+			<a href="">免费申请个人家园</a>&nbsp&nbsp&nbsp<a href="">帮助/反馈</a>&nbsp&nbsp&nbsp<a href="">非法信息举报 </a>
+			<br />
+©1998-2012 www.5ilog.com  版权所有.保留所有权利.浙ICP备06020153号 浙公网安备 33010602002334号
+		</div>
+		<div class="col-md-3 column">
+		</div>
+	</div>
+</div>
+	<script>
+		$(function(){
+			var availableTags=[
+				"红楼梦",
+				"红学",
+				"曹雪芹",
+				"脂砚斋",
+				"畸笏叟",
+				"石头记",
+				"脂砚斋重评石头记",
+				"甲戌本",
+				"陈更本",
+				"品读红楼梦有感"
+			];
+			$( "#accordion" ).accordion({
+		      heightStyle: "fill"
+		    });
+		    $( "#dialog" ).dialog({
+		      autoOpen: false,
+		      modal: true,
+		      show: {
+		        effect: "blind",
+		        duration: 1000
+		      },
+		      hide: {
+		        effect: "explode",
+		        duration: 1000
+		      },
+		      buttons: {
+		        "登录": function() {
+		          $( this ).dialog( "close" );
+		      },
+		         取消: function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
+		    $( "#open" ).click(function() {
+				$( "#dialog" ).dialog( "open" );
+			});
+			$("#datepicker").datepicker({
+				firstDay:1,
+				showOtherMonths:true,
+				changeMonth:true,
+				changeYear:true,
+				dateFormat:"yy年-mm月-dd日"	
+			});
+			$("#auto").autocomplete({
+				 source: availableTags
+			});
+		});
+	</script>
+	</body>
+</html>
