@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>便签</title>
+		<link rel="stylesheet" href="./css/main.css" />
+		<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+		<script src="./js/sticky.js"></script>
+	</head>
+	
+	<body>
+		<input type="text" id="note_text" />
+		<input type="button" id="add_button" value="添加便签" />			
+		<input type="button" id="clear_button" value="清除所有" style="float:right;" />		
+		<ul id="stickies">
+			<li title="双击删除此标签">
+				<span class="sticky">我的内容</span>
+			</li>
+		</ul>
+	</body>
+</html>

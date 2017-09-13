@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>便签</title>
+	<style type="text/css">
+		html,body,div,input{margin:0;padding: 0;}
+		#box{
+			margin: 30px auto;
+			text-align: center;
+		}
+		ul li{
+			list-style: none;
+			display: block;
+			width: 200px;
+			height: 200px;
+			border: 1px solid #bfbfbf;
+			background-color: LightGoldenRodYellow;
+			color: black;
+			box-shadow: 2px 4px 4px rgba(0,0,0,0.4);
+			float: left;
+			text-decoration: none;
+			transition: all 0.5s ease-in;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="text" id="note_text" />
+		<input type="button" id="add_button" value="添加便签" />			
+		<input type="button" id="clear_button" value="清除所有"/>
+		<ul id="stickies">
+			<li title="双击删除此标签">
+				<span class="sticky">我的内容</span>
+			</li>
+		</ul>	
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+
+	});
+</script>
+</html>

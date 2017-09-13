@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>music</title>
+  <style>
+	*{margin:0px;padding:0px;}
+	body{background:#000;background:url("images/dh_bg1.jpg") no-repeat;background-position:center;
+		background-size:cover;/* 等比例覆盖盒子 */}
+	#music{
+		position:relative;
+		width:322px;
+		height:635px;
+		/* background-color:red; */
+		margin:20px auto;
+	}
+	.m_top{
+		width:100%;
+		height:42px;
+		background:url("images/phone_top.png");
+	}
+	.m_info{
+		width:100%;
+		height:20px;
+		background:url("images/top.jpg");
+	}
+	.m_title{
+		width:320px;
+		height:40px;
+		color:#fff;
+		font-size:24px;
+		text-align:center;
+		background-color:#000;
+		line-height:40px;
+		border:1px solid #fff;
+		border-top:0;
+		border-bottom:0;
+	}
+	.m_song{
+		width:320px;
+		height:490px;
+		background:url("images/psb.jpg") no-repeat;
+		background-position:center;
+		background-size:cover;/* 等比例覆盖盒子 */
+		border:1px solid #fff;
+		border-top:0;
+		border-bottom:0;
+	}
+	.m_footer{
+		width:100%;
+		height:47px;
+		background:url("images/phone_bottom.png");
+	}
+	.btn{
+		position:absolute;
+		left:140px;
+		bottom:60px;
+		width:50px;
+		height:50px;
+		/* background:url("images/normalmusic.svg"); */
+		background-size:cover;
+	}
+	.m_song p{
+		color:#fff;
+		text-align:center;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="music">
+		<div class="m_top">	</div>
+		<div class="m_info"></div>
+		<div class="m_title">相伴潭州</div>
+		<div class="m_song"></div>
+		<div class="m_footer"></div>
+		<div class="btn"><img src="images/normalmusic.svg" /></div>
+	</div>
+	<textarea style="display:none" id="text">
+		[00:00.60]相伴潭州——潭州学院校歌（作词/编曲/演唱：潭州学院）
+		[00:01.55]歌词制作 
+		[00:02.25]古潭州   源流长     书院镇潇湘
+		[00:07.26]到如今    薪火旺    再铸新辉煌
+		[00:12.86]跨深壑    品类广    传道授业忙
+		[00:17.96]攀险峰    传奇唱     续书新篇章
+		[00:23.37]风雨同舟  江湖共闯  劈破万里浪
+		[00:28.50]相伴有你   日月光芒  将前途照亮
+		[00:33.97]夙兴夜寐   心念联网   只为学员想
+		[00:39.32]相伴有你   携手图强   奋斗在路上
+		[00:46.53]筑平台   伟业昌   悲欢众担当
+		[00:56.42]虹之玉   各一方   甘苦齐分尝
+		[01:06.30]风雨同舟   江湖共闯   劈破万里浪
+		[01:12.43]相伴有你   日月光芒   将前途照亮
+		[01:18.00]夙兴夜寐   心念联网   只为学员想
+		[01:23.23]相伴有你   携手图强   奋斗在路上
+		[01:28.66]相伴有你   携手图强   奋斗在路上
+		[01:36.67]
+	</textarea>
+	<audio src="music/10.mp3" id="mymusic"></audio>
+ </body>
+ <script text="text/javascript">
+	var btn=document.getElementsByClassName("btn")[0];
+	var music=document.getElementById("mymusic");
+	var txt=document.getElementById("text");
+	var m_song=document.getElementsByClassName("m_song")[0];
+	var img=btn.getElementsByTagName("img")[0];
+	var timer=null;
+	var mouse=true;
+	//歌词
+	var lrc=txt.value;
+	var lrcArr=lrc.split("[");
+	var html='';
+	for (var i=0;i<lrcArr.length;i++){
+		var arr=lrcArr[i].split("]");
+		var times=arr[0].split(".");
+		var time=times[0].split(":");
+		//把时间转化为秒
+		var ms=time[0]*60+time[1]*1;
+		//console.log(ms);
+		if(arr[1]){
+			html+="<p id="+ms+">"+arr[1]+"</p>";
+		}
+		m_song.innerHTML=html;
+		//console.log(html);
+	}
+	//开始同步
+	var oP=document.getElementsByTagName("p");
+	music.addEventListener("timeupdate",function(){
+		var cuTime=parseInt(this.currentTime);//当前播放时间
+		if(document.getElementById(cuTime)){
+			for(var i=0;i<oP.length;i++){
+				oP[i].style.color="#fff";
+			}
+			document.getElementById(cuTime).style.color="red";
+		}
+		//console.log(cuTime);
+	});
+	//播放，暂停
+	btn.onclick=function(){
+		if(mouse){
+			music.play();
+			timer=setInterval(rotate,1000/60);
+			mouse=false;
+		}else{
+			music.pause();
+			clearInterval(timer);
+			mouse=true;
+		}
+	}
+	var num=0;
+	function rotate(){
+		if(num<360){
+			img.style.transform='rotate('+num+'deg)';
+			num++;
+		}else{num=0};
+	}
+ </script>
+</html>
