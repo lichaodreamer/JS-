@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>评分</title>
+		<link type="text/css" rel="stylesheet" href="style.css" />
+		<meta charset="utf-8" />
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				}
+				body{
+				background:url(images/bg.jpg) repeat-x;
+				}
+				#wrap{
+					width:900px;
+					margin:0 auto; /* 居中 */
+					font-size:14px;
+				}
+
+				#mark{
+					line-height:1.5em;
+			}
+		</style>
+	</head>
+
+	<body>
+	  <div id="wrap">
+		<div id="mark">
+			<p><strong>选择评分：</strong>(您的个人评分将会影响商品的平均顾客评分)</p>
+			<div id="pic">
+				<img src="images/star3.gif" title="1" name="star1" />
+				<img src="images/star3.gif" title="2" name="star2" />
+				<img src="images/star3.gif" title="3" name="star3" />
+				<img src="images/star3.gif" title="4" name="star4" />
+				<img src="images/star3.gif" title="5" name="star5" />
+				<br/>
+			</div>
+		<strong>评论内容：</strong>
+		<form>
+			<textarea cols="40" rows="8" value="" id='txt'></textarea>
+			<br />
+			<button  >提交评论</button>
+		</form>
+		</div>
+		</div>					
+	</body>
+	<script type="text/javascript">
+			window.onload=function()
+			{
+				var monse=false;//定义鼠标
+				var txt=document.getElementById('txt')
+				var text=new Array("良","还好","很好","满意","很满意");//文本评价
+				var imgs=document.getElementsByTagName("img");//imgs是一个数组
+				for(var i=0;i<imgs.length;i++)
+				{
+					if(monse==true)
+					{
+						return;
+					}
+					imgs[i].onmouseover=function()
+					{
+						if(monse==true)
+						{
+							return;
+						}
+						var sum=this.title;
+						for(var j=0;j<sum;j++)//j之前的星星发生变化u
+						{
+							imgs[j].src="images/star4.gif";
+						}
+						txt.value=text[sum-1];
+					}
+					imgs[i].onmouseout=function()
+					{
+						if (monse==true) 
+						{
+							return;
+						}
+						for(var j=0;j<imgs.length;j++)
+						{
+							imgs[j].src="images/star3.gif";
+						}
+						txt.value="";
+					}
+					imgs[i].onclick=function()
+					{
+						if(monse==false)
+						{
+							monse=true;
+						}
+						else
+						{
+							monse=false;
+						}
+					}
+				}
+			}
+		</script>
+</html>
