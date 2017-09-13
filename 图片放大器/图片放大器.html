@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>图片放大器</title>
+  <style>
+	html,body,div{
+		margin:0;padding:0;
+	}
+	#range{
+		display: block;
+		margin: 20px auto;
+		width: 600px;
+	}
+  </style>
+ </head>
+ <body>
+  <canvas id="canvas" style="width:520px;height:350px;border: 1px solid #aaa; display: block; margin:50px auto;">
+  </canvas>
+  <input id="range" type="range" min="0.5" max="1.5" value="1" step="0.01" />
+ </body>
+ <script>
+ 	var canvas=document.getElementById("canvas");
+	var cxt=canvas.getContext("2d");
+	var range=document.getElementById("range");
+	var image=new Image();
+ 	window.onload=function(){
+ 		canvas.width=520;
+ 		canvas.height=350;
+ 		var slider=range.value;
+		image.src="images/cake.jpg";
+		image.onload=function(){
+			drawImageBySlider(slider);
+			range.onmousemove=function(){
+				slider=range.value;
+				drawImageBySlider(slider);
+			}
+		}
+ 	}
+	function drawImageBySlider(slider){
+		var imageWidth=520*slider;
+		var imageHeight=350*slider;
+		var dx=canvas.width/2-imageWidth/2;
+		var dy=canvas.height/2-imageHeight/2;
+		cxt.clearRect(0,0,canvas.width,canvas.height);
+		cxt.drawImage(image,dx,dy,imageWidth,imageHeight);
+	}
+ </script>
+</html>

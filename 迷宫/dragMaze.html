@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles/dragMaze.css">
+    <meta charset="utf-8">
+    <title>迷宫游戏</title>
+</head>
+<body>
+	<div id="maze">
+		<div id="drag"></div>
+		<div id="start"></div>
+		<div id="end"></div>
+	</div>			
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript">
+		$(function() {
+			//添加46个地图墙壁
+			for (var x = 1; x < 47; x++) {
+				$("<div>").attr({
+					id: "a" + x,
+					class: "wall"
+				}).appendTo("#maze");
+			}
+	  		
+			//设置拖动元素的配置对象
+			var dragOpts = {
+				containment: "#maze"
+			};
+								
+			//创建拖动组件
+			$("#drag").draggable(dragOpts);
+				
+			//设置放置元素的配置对象，每个墙壁都被看作放置控件并接受拖动标记元素
+			var dropOpts = {
+				accept: "#drag",
+				tolerance: "touch",
+				over: function(e, ui) {
+					//销毁当前拖动对象
+					$("#drag").draggable("destroy").remove();
+						
+					//在开始位置创建一个新的拖动对象
+					$("<div>").attr("id", "drag").css({ left:0, top:0 }).appendTo("#maze");
+						
+					//创建新的拖动组件
+					$("#drag").draggable(dragOpts);
+				}
+			};
+				
+			//设置另外一个放置对象作为迷宫的末端
+			var endOpts = {
+				accept: "#drag",
+				over: function(e, ui) {
+					$("#drag").draggable("destroy").remove();
+					alert("Wooot, you did it!");
+				}
+			};
+				
+			//把墙壁元素设置成放置组件
+			$(".wall").droppable(dropOpts);
+				
+			//把迷宫末端设置成放置组件
+			$("#end").droppable(endOpts);
+	  	});
+		</script>
+  </body>
+</html>

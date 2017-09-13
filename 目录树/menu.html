@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>折叠菜单的实现</title>
+<link href="css/content.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+window.onload=function()
+{
+  var changes=document.getElementsByName("change");
+  for(var i=0;i<changes.length;i++)
+  {
+    changes[i].onclick=function()
+    {
+      if(this.src.indexOf("tree_folder3.gif")!==-1)
+      {
+        this.src="images/tree_folder4.gif";
+       this.parentNode.getElementsByTagName("ul")[0].style.display="none";
+      }
+      else
+      {
+       this.src="images/tree_folder3.gif";
+       this.parentNode.getElementsByTagName("ul")[0].style.display="block"
+      }
+    }
+  }
+}
+</script>
+</head>
+<body
+   <div class="warp">    	
+      <div class="right">
+       <div class="tree" >
+         <ul>
+       	<li>本科
+       	   <ul id="menu">
+       		<li>
+       		   <img src="images/tree_line2.gif" valign="abvmiddle"/>
+       		   <img src="images/tree_folder3.gif" valign="abvmiddle"  class="tag" name="change"/>经贸学院
+       			<ul class="thirdMenu" style="display:block;">
+       			  <li class="third">
+       				<img src="images/tree_line4.gif" valign="abvmiddle"/>
+       				<img src="images/tree_line2.gif" valign="abvmiddle"/>
+       				<span>[文理]</span> 
+                    <a href="#">国际经济与贸易</a>
+       			  </li>
+				  <li>
+					<img src="images/tree_line4.gif" valign="abvmiddle"/>
+					<img src="images/tree_line2.gif" valign="abvmiddle"/>
+					<span>[理工]</span> 
+                    <a href="#"> 经济统计学</a>
+				  </li>
+				  <li>
+					<img src="images/tree_line4.gif" valign="abvmiddle"/>
+					<img src="images/tree_line2.gif" valign="abvmiddle"/>
+					<span>[文理]</span> 
+                    <a href="#"> 金融学</a>
+				  </li>
+       			</ul>
+       		</li>
+       		<li>
+       		   <img src="images/tree_line2.gif" valign="abvmiddle"/>
+       		   <img src="images/tree_folder3.gif" valign="abvmiddle" class="tag"  name="change"/>
+       		   法政学院
+       		   <ul class="thirdMenu">
+       			  <li class="third">
+       				<img src="images/tree_line4.gif" valign="abvmiddle"/>
+       				<img src="images/tree_line2.gif" valign="abvmiddle"/>
+       				<span>[文理]</span>
+                    <a href="#"> 国际经济与贸易</a>
+       			  </li>
+				  <li class="third">
+					<img src="images/tree_line4.gif" valign="abvmiddle"/>
+					<img src="images/tree_line2.gif" valign="abvmiddle"/>
+					<span>[理工]</span>  
+                    <a href="#">经济统计学</a>
+				  </li>
+				  <li class="third">
+					<img src="images/tree_line4.gif" valign="abvmiddle"/>
+					<img src="images/tree_line2.gif" valign="abvmiddle"/>
+					<span>[文理]</span>  
+                    <a href="#">金融学</a>
+				  </li>
+       		   </ul>
+       		</li>
+       		<li>
+       		   <img src="images/tree_line2.gif" valign="abvmiddle"/>
+       		   <img src="images/tree_folder3.gif" valign="abvmiddle"class="tag"  name="change"/>
+       		   会计学院
+       		   <ul class="thirdMenu">
+       			<li class="third">
+       			  <img src="images/tree_line4.gif" valign="abvmiddle"/>
+       			  <img src="images/tree_line2.gif" valign="abvmiddle"/>
+       			  <span>[文理]</span> 
+                  <a href="#">国际经济与贸易</a>
+       			</li>
+				  <li class="third">
+					<img src="images/tree_line4.gif" valign="abvmiddle"/>
+					<img src="images/tree_line2.gif" valign="abvmiddle"/>
+					<span>[理工]</span>
+                    <a href="#"> 经济统计学</a>
+				  </li>
+				  <li class="third">
+					<img src="images/tree_line4.gif" valign="abvmiddle"/>
+					<img src="images/tree_line2.gif" valign="abvmiddle"/>
+					<span>[文理]</span> 
+                    <a href="#"> 金融学</a>
+				  </li>
+       		   </ul>
+       		</li>
+       		<li>
+       		   <img src="images/tree_line2.gif" valign="abvmiddle"/>
+       		   <img src="images/tree_folder3.gif" valign="abvmiddle"class="tag"  name="change"/>
+       		   商学院
+       		   <ul class="thirdMenu">
+       			<li class="third">
+       			  <img src="images/tree_line4.gif" valign="abvmiddle"/>
+       			  <img src="images/tree_line2.gif" valign="abvmiddle"/>
+       			  <span>[文理]</span> 
+                          <a href="#">国际经济与贸易</a>
+       			</li>
+				<li class="third">
+				  <img src="images/tree_line4.gif" valign="abvmiddle"/>
+				  <img src="images/tree_line2.gif" valign="abvmiddle"/>
+				  <span>[理工]</span> 
+                          <a href="#"> 经济统计学</a>
+				</li>
+				<li class="third">
+				  <img src="images/tree_line4.gif" valign="abvmiddle"/>
+				  <img src="images/tree_line2.gif" valign="abvmiddle"/>
+				  <span>[文理]</span> 
+                  <a href="#"> 金融学</a>
+				</li>
+       		   </ul>
+       		</li>
+       	  </ul>
+       	</li>
+           </ul>
+       </div>
+      </div>
+</body>
+
+</html>

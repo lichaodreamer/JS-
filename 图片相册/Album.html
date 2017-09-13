@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Album</title>
+  <style>
+	html,body,div,ul,li,img{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		width:630px;
+		height:400px;
+		margin:30px auto;
+	}
+	#box .list ul li{
+		list-style:none;
+		width:200px;
+		height:180px;
+		float:left;
+		margin:10px 5px;
+	}
+	ul li img{
+		width:100%;
+		height:100%;
+	}
+	#album{
+		position:relative;
+		width:720px;
+		height:560px;
+		background:#aaa;
+		margin:30px auto;
+		text-align:center;
+	}
+
+	.left{
+		position:absolute;
+		top:220px;
+		left:-100px;
+		width:70px;
+		height:100px;
+		background:url("images/l.png") no-repeat;
+		background-position:center;
+		background-size:contain;
+	}
+	.left:hover{
+		background:url("images/l_ch.png") no-repeat;
+		background-position:center;
+		background-size:contain;
+	}
+	.right{
+		position:absolute;
+		top:220px;
+		right:-100px;
+		width:70px;
+		height:100px;
+		background:url("images/r.png") no-repeat;
+		background-position:center;
+		background-size:contain;
+	}
+	.right:hover{
+		background:url("images/r_ch.png") no-repeat;
+		background-position:center;
+		background-size:contain;
+	}
+	.close{
+		position:absolute;
+		top:0;
+		right:0px;
+		width:50px;
+		height:50px;
+		background:url("images/close_ch.png");
+		background-position:center;
+		background-size:contain;
+	}
+	.close:hover{
+		background:url("images/close.png") no-repeat;
+		background-position:center;
+		background-size:contain;
+	}
+	#album .imgs{
+		position:absolute;
+		width:600px;
+		height:400px;
+		margin:80px 60px;
+	}
+	#album .imgs img{
+		width:100%;
+		height:100%;
+		animation: swing 1s .2s ease both;
+	}
+
+
+	@-webkit-keyframes swing {
+		20%,
+		40%,
+		60%,
+		80%,
+		100% {
+			-webkit-transform-origin: top center
+		}
+		20% {
+			-webkit-transform: rotate(15deg)
+		}
+		40% {
+			-webkit-transform: rotate(-10deg)
+		}
+		60% {
+			-webkit-transform: rotate(5deg)
+		}
+		80% {
+			-webkit-transform: rotate(-5deg)
+		}
+		100% {
+			-webkit-transform: rotate(0deg)
+		}
+	}
+  </style>
+ </head>
+ <body>
+    <div id="box">
+		<div class="list">
+			<ul>
+				<li><img src="images/69.jpg"></li>
+				<li><img src="images/74.jpg"></li>
+				<li><img src="images/13611682080.jpg"></li>
+				<li><img src="images/58.jpg"></li>
+				<li><img src="images/14H58PICWJE.jpg"></li>
+				<li><img src="images/8.jpg"></li>
+			</ul>
+		</div>
+	</div>
+	<div id="album" style="display:none">
+		<div class="left"></div>
+		<div class="imgs"><img src="images/69.jpg"></div>
+		<div class="right"></div>
+		<div class="close"></div>
+	</div>
+ </body>
+ <script src="js/jquery.min.js"></script>
+ <script>
+	$(document).ready(function(){
+		var index=0;
+		var _li=$("#box .list ul li");
+		_li.click(function(){
+			var url="";
+			$("body").css("background","#5c5c5c");
+			$("#box").hide(500);
+			url=$(this).find("img").attr("src");
+			index=$(this).index();
+			$(".imgs").find("img").attr("src",url);
+			$("#album").show(500);
+		})
+		$(".left").click(function(){
+			if(index==0){
+				index=5;
+			}
+			index--;
+			_url=_li.eq(index).find("img").attr("src");
+			$(".imgs").find("img").attr("src",_url);
+		})
+		$(".right").click(function(){
+			if(index==5){
+				index=0;
+			}
+			index++;
+			_url=_li.eq(index).find("img").attr("src");
+			$(".imgs").find("img").attr("src",_url);
+		})
+		$(".close").click(function(){
+			$("body").css("background","#fff");
+			$("#box").show(500);
+			$("#album").hide(500);
+		})
+	})
+ </script>
+</html>

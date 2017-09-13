@@ -1,0 +1,67 @@
+ <!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ <title>霓虹灯</title>
+<style type="text/css">
+body{background-color: #00688B;}
+.text{
+	font-size: 64px;
+	font-weight: normal;
+	text-transform: uppercase;/*大写 lowercase小写；capitalize单词首字母大写*/
+	fill:none;
+	stroke: #B0E0E6;
+	stroke-width: 2px;
+	stroke-dasharray: 90 310;
+	animation: stroke 6s infinite linear;
+}
+.text-1{
+	stroke: #FFEC8B;
+	animation-delay:-1.5s;
+	text-shadow:5px 5px 5px #FFEC8B;
+}
+.text-2{
+	stroke:#AEEEEE;
+	animation-delay:-3s;
+	text-shadow:5px 5px 5px #7FFFD4;
+}
+.text-3{
+	stroke:#EEE0E5;
+	animation-delay:-4.5s;
+	text-shadow:5px 5px 5px #7FFFD4;
+}
+.text-4{
+	stroke:#FFC1C1;
+	animation-delay:-6s;
+	text-shadow:5px 5px 5px #7FFFD4;
+}
+@keyframes stroke {
+	to {
+		stroke-dashoffset: -400;
+	}
+}
+</style>
+</head>
+
+<body>
+	<svg width="100%" height="100" style="margin:100px auto">
+		<text text-anchor="middle" x="50%" y="50%" class="text text-1" >
+			Happy birthday to you❤
+		</text>
+		<text text-anchor="middle" x="50%" y="50%" class="text text-2" >
+			Happy birthday to you❤
+		</text>
+		<text text-anchor="middle" x="50%" y="50%" class="text text-3" >
+			Happy birthday to you❤
+		</text>
+		<text text-anchor="middle" x="50%" y="50%" class="text text-4" >
+			Happy birthday to you❤
+		</text>
+	</svg>
+</body>
+
+</html>
