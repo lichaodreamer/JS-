@@ -1,0 +1,167 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>音乐播放器</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+	<link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.mobile-1.2.0.js"></script>
+	<script>
+	$(function(){
+		//播放器样式设置
+		playwidth = $(window).width();
+		outerwidth = playwidth*0.9;
+		$("#outer").css('width',outerwidth);
+		$("#rate").css('width',outerwidth*0.6);
+		$("#ratetime").css('width',outerwidth*0.1);
+
+		//设置内容区域的高度，确保播放区域位于页面靠下位置
+		$("#content").css('height',$(window).height()*0.75);
+		//获取audio元素
+		var audio =document.getElementById('audios');
+		$("#content a").click(function(){
+			var text= $(this).text();//获取超链接的文本的方式
+			if(text=="播放"){
+    			var which = $(this).attr('href');//获取超链接地址方法
+    			var one=$(this);
+    			audio.src= which;
+    			audio.play();
+    			// 文字边停止
+    			$("#content a").text("播放");
+				$(this).text("停止");
+                // 图片暂停的图样
+				$("#playp").css('background-position','-70px -25px');
+
+				var timer=setInterval(function(){
+					// 播放进度条
+					var total=audio.duration;//总时间
+					var now= audio.currentTime;//当前时间
+					var progress=now / total;//播放进度
+					var width=progress*($("#rate").width());
+					$("#ratemid").css('width',parseInt(width));
+					var totalTime = (total/60).toFixed(2);
+					var nowTime = (now/60).toFixed(2);
+					$("#ratetime").text(nowTime+'/'+totalTime);	
+				},1000)		
+				var mouse=false;
+				$("#playp").click(function(){
+					if(mouse==false){//暂停
+						var which = $("#content a").attr('href');//获取超链接地址方法
+    					audio.src= which;
+    					audio.pause();//音频停止
+						$("#playp").css('background-position','-50px -25px');//变暂停
+						one.text("暂停");
+						clearInterval(timer);
+						mouse=true;
+					}
+					else{//播放
+						var which = $("#content a").attr('href');//获取超链接地址方法
+						audio.src= which;
+						audio.play();
+						one.text("停止");
+						var timer=setInterval(function(){
+						// 播放进度条
+						var total=audio.duration;//总时间
+						var now= audio.currentTime;//当前时间
+						var progress=now / total;//播放进度
+						var width=progress*($("#rate").width());
+						$("#ratemid").css('width',parseInt(width));
+						var totalTime = (total/60).toFixed(2);
+						var nowTime = (now/60).toFixed(2);
+						$("#ratetime").text(nowTime+'/'+totalTime);	
+				},1000)
+						$("#playp").css('background-position','-70px -25px');
+						mouse=false;
+					}
+
+				});
+				//开始快进后退
+				//audio.currentTime + =15实现快进
+				$("#next").click(function(){
+					var which = $("#content a").attr('href');//获取超链接地址方法
+    				audio.src= which;
+    				var timer=setInterval(function(){
+						// 播放进度条
+						var total=audio.duration;//总时间
+						var now= audio.currentTime+15;//当前时间
+						var progress=now / total;//播放进度
+						var width=progress*($("#rate").width());
+						$("#ratemid").css('width',parseInt(width));
+						var totalTime = (total/60).toFixed(2);
+						var nowTime = (now/60).toFixed(2);
+						$("#ratetime").text(nowTime+'/'+totalTime);	
+				},1000)
+				});
+		}
+		else{
+				$(this).text("播放");//变播放
+				audio.pause();//音频停止
+				clearInterval(timer);
+				$("#playp").css('background-position','-50 -20');
+			}
+		return false;
+	});
+
+
+});
+	</script>
+	<style>
+	
+	</style>
+</head> 
+<body> 
+<div data-role="page">
+  <div data-role="header" data-position="fullscreen">
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#" class="ui-btn-active">在线音乐</a></li>
+      <li><a href="#">本地音乐</a></li>
+    </ul>
+  </div>
+  </div><!-- /header -->
+  <div data-role="content" id="content" >
+	<div>
+		<div style="float:left;width:80%;height:30px;font:12px;">千千阙歌</div>
+		<div style="float:left;width:20%;height:30px;font:12px;">
+			<a href='music/02.mp3' id='play'>播放</a>
+		</div>
+	</div>
+	<div>
+		<div style="float:left;width:80%;height:30px;font:12px;">思念人之屋</div>
+		<div style="float:left;width:20%;height:30px;font:12px;">
+			<a href='music/01.mp3' id='play'>播放</a>
+		</div>
+	</div>
+  </div><!-- /content -->
+  <div data-role="footer" class="ui-bar">
+	<audio src="music/02.mp3"   id='audios' ></audio>
+	<!-- 播放器外边框 只有一个ausio 在最下面-->
+	<div id="outer">
+		<!-- 播放器控制区域: 上一首 下一首 播放 暂停 -->
+		<div id="control">
+			<div id="prv">&nbsp</div>
+			<div id="playp" class='ply'></div>
+			<div id="next">&nbsp</div>
+		</div>
+		<!-- 播放器控制区域结束 -->
+		<!-- 播放进度-->
+		<div id="rate">
+			<div id="ratetop"></div>
+			<div id="ratemid"></div>
+			<div id="ratemidtop">&nbsp</div>
+			<div id="ratebom"></div>
+		</div>
+		<!-- 播放进度结束-->
+		<div id="ratetime">
+		</div>
+		<!-- 音量-->
+		<div id="volume"></div>
+		<!-- 音量结束-->
+	</div>
+	<!-- 播放器外边框结束 -->
+	
+  </div>
+</div><!-- /page -->
+</body>
+</html>
