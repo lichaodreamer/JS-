@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>立方体</title>
+  <style>
+	html,body,div,ol,ul,li,input,span{margin:0;padding:0;}
+	.banner{
+		width:800px;
+		height:360px;
+		margin:50px auto;
+		background:#ff3;
+		perspective:1000px;
+	}
+	.banner .pic{
+		width:800px;
+		height:360px;
+	}
+	.pic ul li{
+		position:relative;
+		list-style:none;
+		width:200px;
+		height:360px;
+		float:left;
+		transform-style:preserve-3d;/*景深*/
+		transition:2s;/*过渡时间*/
+		border:1px solid #0f0;
+		transform:translateZ(-180px);/*整个立方体向里面推*/
+	}
+	.pic ul li span{
+		position:absolute;
+		display:block;
+		width:200px;
+		height:360px;
+		border:1px solid red;
+	}
+	/* 定位置 */
+	.pic ul li span:nth-child(1){
+		top:-360px;
+		transform-origin:bottom;/*基准*/
+		transform:translateZ(180px) rotateX(90deg);
+	}/*上*/
+	.pic ul li span:nth-child(2){
+		top:360px;
+		transform-origin:top;/*基准*/
+		transform:translateZ(180px) rotateX(-90deg);
+	}/*下*/
+	.pic ul li span:nth-child(3){
+		transform:translateZ(180px);
+	}/*前*/
+	.pic ul li span:nth-child(4){
+		transform:translateZ(-180px);/*平移*/
+	}/*后*/
+	.pic ul li span:nth-child(5){
+		width:360px;left:-360px;
+		transform-origin:right;/*基准*/
+		transform:translateZ(180px) rotateY(-90deg);
+	}/*左*/
+	.pic ul li span:nth-child(6){
+		width:360px;left:200px;
+		transform-origin:left;/*基准*/
+		transform:translateZ(180px) rotateY(90deg);
+	}/*右*/
+	/* 测试 */
+	.pic:hover li{
+		/* transform-origin:top; *//*查看效果*/
+		transform:translateZ(-180px) rotateX(180deg);
+	}
+  </style>
+ </head>
+ <body>
+  <div class="banner">
+	<div class="pic">
+		<ul>
+			<li>
+				<span>上</span>
+				<span>下</span>
+				<span>前</span>
+				<span>后</span>
+				<span>左</span>
+				<span>右</span>
+			</li>
+		</ul>
+	</div>
+	<div class="button">
+		
+	</div>
+  </div>
+ </body>
+ <script>
+	
+ </script>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>3D旋转</title>
+  <style id="css">
+	html,body,div,ol,ul,li,input,span{margin:0;padding:0;}
+	.banner{
+		position:relative;
+		width:800px;
+		height:360px;
+		margin:50px auto;
+		/* background:#ff3; */
+		perspective:1000px;
+	}
+	.banner .pic{
+		width:800px;
+		height:360px;
+	}
+	.pic ul li{
+		position:relative;
+		list-style:none;
+		/* width:200px; 干掉*/
+		height:360px;
+		float:left;
+		transform-style:preserve-3d;/*景深*/
+		transition:2s;/*过渡时间*/
+		/* border:1px solid #0f0; */
+		transform:translateZ(-180px);/*整个立方体向里面推*/
+	}
+	.pic ul li span{
+		position:absolute;
+		display:block;
+		/* width:200px; 干掉*/
+		height:360px;
+		/* border:1px solid red; */
+	}
+	/* 定位置 */
+	.pic ul li span:nth-child(1){
+		top:-360px;
+		transform-origin:bottom;/*基准*/
+		transform:translateZ(180px) rotateX(90deg);
+		background-image:url("images/1.png");
+	}/*上*/
+	.pic ul li span:nth-child(2){
+		top:360px;
+		transform-origin:top;/*基准*/
+		transform:translateZ(180px) rotateX(-90deg);
+		background-image:url("images/2.png");
+	}/*下*/
+	.pic ul li span:nth-child(3){
+		transform:translateZ(180px);
+		background-image:url("images/3.png");
+	}/*前*/
+	.pic ul li span:nth-child(4){
+		transform:translateZ(-180px) rotateX(180deg);/*平移*/
+		background-image:url("images/4.png");
+	}/*后*/
+
+	/* 定位图片位置 */
+	/* .pic li:nth-child(1) span{
+		background-position:0px;
+	}
+	.pic li:nth-child(2) span{
+		background-position:-200px;
+	}
+	.pic li:nth-child(3) span{
+		background-position:-400px;
+	}
+	.pic li:nth-child(4) span{
+		background-position:-600px;	
+	} */
+	/* 规定旋转时间 第二个参数为延迟时间 */
+	/* .pic li:nth-child(1){transition:1s 0s;}
+	.pic li:nth-child(2){transition:1s 0.2s;}
+	.pic li:nth-child(3){transition:1s 0.4s;}
+	.pic li:nth-child(4){transition:1s 0.6s;} */
+	/* 测试 */
+	/* .pic:hover li{
+		transform-origin:top;查看效果
+		transform:translateZ(-180px) rotateX(180deg);
+	} */
+	/* 按钮 大盒子定位*/
+	.button{
+		position:absolute;
+		width:100px;
+		height:20px;
+		bottom:3px;
+		right:5px;
+		/* border:1px solid red; */
+	}
+	.button ul li{
+		list-style:none;
+		float:left;
+		width:20px;
+		height:20px;
+		color:#fff;
+		text-align:center;
+		line-height:20px;
+		background:#000;
+		border-radius:10px;
+		margin:0 2px;
+		box-shadow:1px 1px 5px #fff;
+		cursor:pointer;
+	}
+  </style>
+ </head>
+ <body>
+  <div class="banner">
+	<div class="pic">
+		<ul></ul>
+	</div>
+	<div class="button">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+  </div>
+ </body>
+ <script src="js/jquery-1.11.1.min.js"></script>
+ <script>
+	function li(x){
+		let lHtml='';	
+		let wHtml=800/x;
+		let pHtml='';
+		let tHtml='';
+		let z=0;
+		let zHtml='';
+		//循环添加li，
+		for(let i=0;i<x;i++){
+			if(i>x/2){
+				z--;
+				zHtml+=".pic li:nth-child("+(i+1)+"){z-index:"+z+"}";
+			}
+
+			lHtml+="<li><span></span><span></span><span></span><span></span></li>";
+			pHtml+=".pic li:nth-child("+(i+1)+") span{background-position:"+(-wHtml*i+'px')+";}";
+			tHtml+=".pic li:nth-child("+(i+1)+"){transition:1s "+0.5/x*i+"s;}";
+			//0.5*x总时间，分i,与个数挂钩
+		}
+		$(".pic ul").append(lHtml);//添加x个块
+		$("#css").append(pHtml);//移动多少拼接图片
+		$("#css").append(tHtml);//延迟时间
+		$("#css").append(zHtml);//z-index
+		$(".pic ul li,.pic ul li span").css("width",wHtml+"px");//改变宽度
+		
+		
+	}
+	$(".button li").click(function(){
+		let index=$(this).index();
+		let deg=index*90+'deg';
+		$(".pic li").css("transform","translateZ(-180px) rotateX("+deg+")")
+	})
+
+	li(50);
+ </script>
+</html>
