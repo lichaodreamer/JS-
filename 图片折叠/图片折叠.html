@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>图片折叠</title>
+<style type="text/css">
+html,body,div,ul,li,img{margin: 0;padding: 0;}
+body{
+    background: #DDDDDD;
+}
+.box{
+    width: 980px;
+    height: 430px;
+    border: 5px solid #fff;
+    margin: 50px auto;
+    perspective:1000px;
+}
+ul li{
+    list-style: none;
+    display: block;
+    width: 196px;
+    height:430px;
+    background: url("8.jpg");
+    float: left;
+    transform-style:preserve-3d;/*景深*/
+    /*transition: 0.4s;*/
+}
+ul li:nth-child(1){
+    background-position: 0px 1px;
+}
+ul li:nth-child(2){
+    background-position: -196px 1px;
+}
+ul li:nth-child(3){
+    background-position: -392px 1px;
+}
+ul li:nth-child(4){
+    background-position: -586px 1px;
+}
+ul li:nth-child(5){
+    background-position: -782px 1px;
+    overflow: hidden;
+}
+.box:hover ul li:nth-child(2){
+    transform-origin:left;/*基准*/
+    transform:rotateY(-20deg);
+}
+.box:hover ul li:nth-child(3){
+    transform-origin:left;/*基准*/
+    transform:translateZ(65px) translateX(-13px) rotateY(20deg);
+}
+.box:hover ul li:nth-child(4){
+    transform-origin:left;/*基准*/
+    transform: translateX(-26px) rotateY(-20deg);
+}
+.box:hover ul li:nth-child(5){
+    transform-origin:left;/*基准*/
+    transform:translateZ(65px) translateX(-38px) rotateY(20deg);
+}
+</style>
+</head>
+<body>
+<div class="box">
+   <ul>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+   </ul>
+</div>
+</body>
+</html>

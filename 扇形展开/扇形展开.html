@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>扇形展开</title>
+</head>
+<style type="text/css">
+	html,body,div,ul,li,p,h1,h2{margin: 0;padding: 0;}
+	li{list-style: none;}
+	ul{
+		margin: 100px;
+		margin-left: 500px;
+	}
+	#main ul li{
+		position: absolute;
+		display: block;
+		width: 130px;
+		height: 400px;
+		transition:1.5s;/*过渡时间*/
+		/*transition:transform .5s ease;*/
+		transform-origin: 25% 90%;
+		text-align: center;
+	}
+	#main ul li:nth-child(12){
+		/*transform: rotate(-90deg);*/
+		background: #EA2A29;
+		z-index: -12;
+	}
+	#main ul li:nth-child(11){
+		/*transform: rotate(-75deg);*/
+		background: #F16729;
+		z-index: -11;
+	}
+	#main ul li:nth-child(10){
+		/*transform: rotate(-60deg);*/
+		background: #F89322;
+		z-index: -10;
+	}
+	#main ul li:nth-child(9){
+		/*transform: rotate(-45deg);*/
+		background: #FFCF14;
+		z-index: -9;
+	}
+	#main ul li:nth-child(8){
+		/*transform: rotate(-30deg);*/
+		background: #FFEA0D;
+		z-index: -8;
+	}
+	#main ul li:nth-child(7){
+		/*transform: rotate(-15deg);*/
+		background: #87B11D;
+		z-index: -7;
+	}
+	#main ul li:nth-child(6){
+		/*transform: rotate(0deg);*/
+		background: #008253;
+		z-index: -6;
+	}
+	#main ul li:nth-child(5){
+		/*transform: rotate(15deg);*/
+		background: #3277B5;
+		z-index: -5;
+	}
+	#main ul li:nth-child(4){
+		/*transform: rotate(30deg);*/
+		background: #4C549F;
+		z-index: -4;
+	}
+	#main ul li:nth-child(3){
+		/*transform: rotate(45deg);*/
+		background: #764394;
+		z-index: -3;
+	}
+	#main ul li:nth-child(2){
+		/*transform: rotate(60deg);*/
+		background: #CA0D86;
+		z-index: -2;
+	}
+	#main ul li:nth-child(1){
+		/*transform: rotate(75deg);*/
+		background: url("images/cover.jpg");
+		z-index: -1;
+	}
+	.btn{
+		position: absolute;
+		top: 90%;left: 25%;
+		width: 20px;
+		height: 20px;
+		background: #dddddd;
+		border-radius: 50% 50%;
+		/*设置旋转中心钮*/
+		background: linear-gradient(135deg, #dddddd 0%,#58535e 48%,#889396 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#889396',GradientType=1 );
+		box-shadow: -1px -1px 1px rgba(0,0,0,0.5), 1px 1px 1px rgba(255,255,255,0.1);
+	}
+	#main ul li:nth-child(1) p{
+		font-size: 18px;
+		font-weight: 900;
+		z-index: -100;
+	}
+	h1{
+		display: block;
+		font-size: 40px;
+		width: 260px;
+		margin: 170px -40px;
+		transform: rotate(-90deg);
+		z-index: -100;
+	}
+	h2{
+		margin: 10px auto;
+		font-size: 60px;
+	}
+	/*.con没有写*/
+</style>
+<body>
+<div id="main">
+	<ul>
+		<li class="start">
+			<div class="btn"></div>
+			<p>点击展开/折叠</p>
+			<h1> ♥ COLORFUL</h1>
+		</li>
+		<li>
+			<h2 class="til">A</h2>
+			<p class="con">数码</p>
+		</li>
+		<li>
+			<h2>B</h2>
+			<p class="con">主题</p>
+		</li>
+		<li>
+			<h2>C</h2>
+			<p class="con">下载</p>
+		</li>
+		<li>
+			<h2>D</h2>
+			<p class="con">视频</p>
+		</li>
+		<li>
+			<h2>E</h2>
+			<p class="con">图片</p>
+		</li>
+		<li>
+			<h2>F</h2>
+			<p class="con">选项</p>
+		</li>
+		<li>
+			<h2>G</h2>
+			<p class="con">产品</p>
+		</li>
+		<li>
+			<h2>H</h2>
+			<p class="con">软件</p>
+		</li>
+		<li>
+			<h2>I</h2>
+			<p class="con">浏览</p>
+		</li>
+		<li>
+			<h2>J</h2>
+			<p class="con">模式</p>
+		</li>
+		<li>
+			<h2>K</h2>
+			<p class="con">设置</p>
+		</li>
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		let mouse=false;
+		let oli=$("#main ul li");
+		let l=oli.length;
+		function open(){
+			for(let i=0;i<l;i++){
+				oli.eq(i).css("transform","rotate("+(75-i*15)+"deg)");
+			}
+		}
+		open();
+		oli.click(function(){
+			//得到点击的第几个
+			let index=$(this).index();
+			//if是判断是不是第一个，是的话就是直接开或者关
+			if(index==0){
+				if(mouse==false){
+					oli.css("transform","rotate("+0+"deg)");
+					mouse=true;
+				}else{
+					open();
+					mouse=false;
+				}	
+			}else{
+				oli.eq(index).css("transform","rotate("+0+"deg)");
+				//大于i的
+				let m=index+1;
+				for(let i=index+1;i<l;i++){
+					oli.eq(i).css("transform","rotate("+((m-index)*(-15))+"deg)");
+					m++;//用来找比index大的
+				}
+				oli.eq(index-1).css("transform","rotate("+20+"deg)");
+				let k=index-1;
+				for(let j=index-2;j>=0;j--){
+					oli.eq(j).css("transform","rotate("+((index-k)*15+20)+"deg)");
+					k--;
+				}
+			}
+		})
+	});
+</script>
+</html>
