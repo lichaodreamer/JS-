@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>选中分享</title>
+  <style type="text/css">
+    #share{width:500px;margin:50px auto;}
+    #share_button{position:absolute;display:none;}
+  </style>
+ </head>
+ <body>
+  <p id="share">
+	一直都相信，文字里的暖是可以润心的，就如一朵花开在干枯的河床，它可以温暖视线，增添美丽，润泽心扉，一段文字，一首音乐，一缕幸福，一份心情，可以领略幸福的风景，一个场景，可以体会幸福的真谛，一句若你安好，便是晴天，蕴藏了生命的厚重。--魂之舞者
+  </p>
+<div id="share_button"><img src="img/share.gif" alt="" /></div>
+ </body>
+ <script type="text/javascript">
+   window.onload=function(){
+    //获取选中文字函数
+    function select(){
+      return document.selection?document.selection.createRange().text:window.getSelection().toString();
+    }//做IE标准
+    let text=document.getElementById("share");
+    let shareButto=document.getElementById("share_button");
+    text.onmouseup=function(e){
+      var e=e||window.event;
+      let l=document.body.scrollLeft>0?document.body.scrollLeft:document.documentElement.scrollLeft;
+      let t=document.body.scrollTop>0?document.body.scrollTop:document.documentElement.scrollTop;
+      l+=e.clientX;
+      t+=e.clientY;
+      if(select().length>10){
+        setTimeout(function (){//解决IE下文本选中不正确的问题
+          share_button.style.display='block';
+          share_button.style.left=l+'px';
+          share_button.style.top=t+'px';    
+        },100);
+      }else{
+        share_button.style.display='none';
+      }
+      document.onclick=function(){
+        share_button.style.display='none';
+      }
+      text.onclick=function(){
+        var ev=ev||window.event;
+        ev.cacelBubble=true;
+      }
+      share_button.onclick=function(){
+        window.location.href="http://service.weibo.com/share/share.php?title="+select();
+        // +"&url="+window.location.href为
+      }
+    } 
+   }
+ </script>
+</html>
