@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>全屏</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+<script src=""juqery.js></script>
+ </head>
+
+ <body>
+  <input value="全屏" type='button' id="screen" />  
+  先引入jQuery
+ </body>
+ <script>
+	    //全屏模式
+		window.isflsgrn = false;//ie11是否进入全屏标志，true为全屏状态
+		window.ieIsfSceen = false;//ie11是否进入全屏标志，true为全屏状态态
+		//跨浏览器返回当前 document 是否进入了可以请求全屏模式的状态
+		function fullscreenEnable(){
+		  var isFullscreen = document.fullscreenEnabled ||window.fullScreen ||document.mozFullscreenEnabled ||document.webkitIsFullScreen;
+		  return isFullscreen;
+		}
+		//全屏
+		var fScreen = function(){
+			var docElm = document.documentElement;
+			if (docElm.requestFullscreen) {
+				docElm.requestFullscreen();
+			}else if (docElm.msRequestFullscreen) {
+				 docElm.msRequestFullscreen();
+				 ieIsfSceen = true;
+			}else if (docElm.mozRequestFullScreen) {
+				  docElm.mozRequestFullScreen();
+			}else if (docElm.webkitRequestFullScreen) {
+				  docElm.webkitRequestFullScreen();
+			}else {//对不支持全屏API浏览器的处理
+			  window.parent.hideTopBottom();
+			  isflsgrn = true;
+			}
+			$("#header").hide(500);
+      $("#footer").hide(500);
+		}
+    //退出全屏
+    var cfScreen = function(){
+      if(document.exitFullscreen) {
+				 document.exitFullscreen();
+		  }else if (document.msExitFullscreen) {
+				 document.msExitFullscreen();
+      }else if (document.mozCancelFullScreen) {
+				 document.mozCancelFullScreen();
+      }else if (document.webkitCancelFullScreen) {
+         document.webkitCancelFullScreen();
+      }else {
+				window.parent.showTopBottom();
+        isflsgrn = false;
+      }
+      $("#header").show(500);
+      $("#footer").show(500);
+    }
+    // 出发函数
+		$("#screen").click(function(){
+			console.log(1)
+			var isfScreen = fullscreenEnable();
+      if(!isfScreen && isflsgrn == false){
+        if (ieIsfSceen == true) {
+          document.msExitFullscreen();
+          ieIsfSceen = false;
+          return;
+        }
+        fScreen();
+      }else{
+        cfScreen();
+      }
+    });
+    // 键盘
+    $(document).keydown(function (event) {
+      if(event.keyCode == 27 && ieIsfSceen == true){
+        ieIsfSceen = false;
+      }
+    });
+
+ </script>
+</html>
